@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(["prefix" => "admin"], function () {
+    Route::apiResource('payment-methods', App\Http\Controllers\Admin\PaymentMethodController::class)->except("show");
+
+    Route::apiResource('stores', App\Http\Controllers\Admin\StoreController::class)->except("show");
+});
