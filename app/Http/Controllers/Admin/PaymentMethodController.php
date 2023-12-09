@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PaymentMethodPostRequest;
+use App\Http\Resources\Admin\PaymentMethodResource;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,7 +19,7 @@ class PaymentMethodController extends Controller
             ? $paymentMethods->oldest()
             : $paymentMethods->latest();
 
-        return response()->make($paymentMethods->get());
+        return response()->make(PaymentMethodResource::collection($paymentMethods->get()));
     }
 
     public function store(PaymentMethodPostRequest $request): Response

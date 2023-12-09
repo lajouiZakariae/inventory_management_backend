@@ -26,9 +26,7 @@ final class StoreControllerTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertJsonStructure(['*' => [
-                "id", "name", "address", "latitude", "longitude"
-            ]])
+            ->assertJsonStructure(['*' => ['id', 'name', 'address', 'latitude', 'longitude', 'url']])
             ->assertJson(function (AssertableJson $json) {
                 $json->has(3);
             });
@@ -57,8 +55,8 @@ final class StoreControllerTest extends TestCase
         $response->assertCreated();
         $response->assertJson(function (AssertableJson $json) use ($store) {
             $json
-                ->where("name", $store->name)
-                ->where("address", $store->address)
+                ->where('name', $store->name)
+                ->where('address', $store->address)
                 ->etc();
         });
     }

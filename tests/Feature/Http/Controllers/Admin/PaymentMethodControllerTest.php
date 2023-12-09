@@ -23,7 +23,7 @@ final class PaymentMethodControllerTest extends TestCase
 
         $response->assertOk();
 
-        $response->assertJsonStructure(["*" => ["id", "name", "description"]]);
+        $response->assertJsonStructure(['*' => ['id', 'name', 'description', 'url']]);
     }
 
 
@@ -48,27 +48,27 @@ final class PaymentMethodControllerTest extends TestCase
 
         $response->assertJson(function (AssertableJson $json)
         use ($paymentMethod) {
-            $json->where("name", $paymentMethod->name)->etc();
+            $json->where('name', $paymentMethod->name)->etc();
         });
     }
 
     #[Test]
     public function store_respond_with_errors(): void
     {
-        $name = "";
-        $name_with_special_chars = "";
+        $name = '';
+        $name_with_special_chars = '';
 
         $response = $this->post(route('payment-methods.store'), [
             'name' => $name,
         ]);
 
-        $response->assertInvalid("name");
+        $response->assertInvalid('name');
 
         $response = $this->post(route('payment-methods.store'), [
             'name' => $name_with_special_chars,
         ]);
 
-        $response->assertInvalid("name");
+        $response->assertInvalid('name');
     }
 
     #[Test]
@@ -106,7 +106,7 @@ final class PaymentMethodControllerTest extends TestCase
     #[Test]
     public function destroy_responds_with_not_found(): void
     {
-        $response = $this->delete(route('payment-methods.destroy', ["payment_method" => 188]));
+        $response = $this->delete(route('payment-methods.destroy', ['payment_method' => 188]));
 
         $response->assertNotFound();
     }

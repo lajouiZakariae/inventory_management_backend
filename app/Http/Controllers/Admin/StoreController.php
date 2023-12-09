@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePostRequest;
+use App\Http\Resources\Admin\StoreResource;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,11 +15,11 @@ class StoreController extends Controller
     {
         $stores = Store::query();
 
-        $stores = $request->input("sortBy") === "oldest"
+        $stores = $request->input('sortBy') === 'oldest'
             ? $stores->oldest()
             : $stores->latest();
 
-        return response()->make($stores->get());
+        return response()->make(StoreResource::collection($stores->get()));
     }
 
     public function store(StorePostRequest $request): Response
