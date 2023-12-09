@@ -17,17 +17,9 @@ class Setting extends Model
     protected $fillable = [
         'name',
         'value',
-        'is_admin',
-        'is_web',
+        'default',
+        'platform',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_admin' => 'boolean',
-        'is_web' => 'boolean',
-    ];
+    protected $hidden = ['created_at', 'updated_at', 'default'];
 }

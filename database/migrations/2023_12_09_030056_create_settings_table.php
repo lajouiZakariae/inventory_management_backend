@@ -15,8 +15,8 @@ return new class extends Migration
             $table->increments('id');
             $table->enum('name', ["theme"]);
             $table->string('value');
-            $table->boolean('is_admin');
-            $table->boolean('is_web');
+            $table->string('default');
+            $table->enum('platform', ["desktop","web_client","web_admin"]);
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Enums\Roles;
 use App\Models\Role;
+use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,6 +28,27 @@ class DatabaseSeeder extends Seeder
         Role::insert([
             ["name" => "admin"],
             ["name" => "creator"]
+        ]);
+
+        Setting::insert([
+            [
+                'name' => 'theme',
+                'value' => 'green',
+                'default' => 'green',
+                'platform' => 'web_client'
+            ],
+            [
+                'name' => 'theme',
+                'value' => 'red',
+                'default' => 'green',
+                'platform' => 'web_admin'
+            ],
+            [
+                'name' => 'theme',
+                'value' => 'blue',
+                'default' => 'blue',
+                'platform' => 'desktop'
+            ],
         ]);
 
         $this->call([

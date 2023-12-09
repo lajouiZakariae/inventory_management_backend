@@ -27,6 +27,10 @@ final class SettingFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => fake()->randomElement(['theme']),
+            'value' => fake()->word,
+            'default' => fake()->word,
+            'platform' => fake()->randomElement(['desktop', 'web_client', 'web_admin']),
         ];
     }
 }
