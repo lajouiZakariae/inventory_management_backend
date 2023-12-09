@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentMethod extends Model
+class Setting extends Model
 {
     use HasFactory;
 
@@ -16,6 +16,18 @@ class PaymentMethod extends Model
      */
     protected $fillable = [
         'name',
-        'description',
+        'value',
+        'is_admin',
+        'is_web',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_admin' => 'boolean',
+        'is_web' => 'boolean',
     ];
 }
