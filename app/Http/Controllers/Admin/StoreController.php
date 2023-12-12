@@ -22,6 +22,12 @@ class StoreController extends Controller
         return response()->make(StoreResource::collection($stores->get()));
     }
 
+
+    public function show(Store $store): Response
+    {
+        return response()->make(new StoreResource($store));
+    }
+
     public function store(StorePostRequest $request): Response
     {
         $store = Store::create($request->validated());
@@ -33,7 +39,7 @@ class StoreController extends Controller
     {
         $store->update($request->validated());
 
-        return response()->make($store);
+        return response()->noContent();
     }
 
     public function destroy(Request $request, Store $store): Response

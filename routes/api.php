@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Platforms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::apiResource('payment-methods', App\Http\Controllers\Admin\PaymentMethodController::class)->except('show');
+    Route::apiResource('payment-methods', App\Http\Controllers\Admin\PaymentMethodController::class);
 
-    Route::apiResource('stores', App\Http\Controllers\Admin\StoreController::class)->except('show');
+    Route::apiResource('stores', App\Http\Controllers\Admin\StoreController::class);
 
-    Route::apiResource('settings', App\Http\Controllers\Admin\SettingController::class)->only('index', 'update');
+    Route::get('settings/{setting:platform}', [App\Http\Controllers\Admin\SettingController::class, 'show'])
+        ->name('settings.show')
+        ->whereIn("platform", array_column(Platforms::cases(), 'value'));
+
+    Route::put('settings/{setting:platform}', [App\Http\Controllers\Admin\SettingController::class, 'update'])
+        ->name('settings.update');
 });

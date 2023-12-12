@@ -14,11 +14,13 @@ use Tests\TestCase;
  */
 final class PaymentMethodControllerTest extends TestCase
 {
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
 
     #[Test]
     public function index_behaves_as_expected(): void
     {
+        PaymentMethod::factory()->count(3)->create();
+
         $response = $this->get(route('payment-methods.index'));
 
         $response->assertOk();
@@ -69,6 +71,25 @@ final class PaymentMethodControllerTest extends TestCase
         ]);
 
         $response->assertInvalid('name');
+    }
+
+    #[Test]
+    public function show_behaves_as_expected(): void
+    {
+        $paymentMethod = PaymentMethod::factory()->create();
+
+        $response = $this->get(route('payment-methods.show', $paymentMethod));
+
+        $response->assertOk();
+
+        $response->assertJsonStructure(['id', 'name', 'description', 'url']);
+        $response->assertJson(function (AssertableJson $json) use ($paymentMethod) {
+            $json
+                ->where('id', $paymentMethod->id)
+                ->where('name', $paymentMethod->name)
+                ->where('description', $paymentMethod->description)
+                ->where('url', route("payment-methods.show", $paymentMethod));
+        });
     }
 
     #[Test]

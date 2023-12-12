@@ -13,22 +13,23 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class PaymentMethodFactory extends Factory
 {
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = PaymentMethod::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [
             'name' => fake()->name,
             'description' => fake()->optional()->text,
+            'created_at' => fake()->dateTime()
         ];
     }
 }

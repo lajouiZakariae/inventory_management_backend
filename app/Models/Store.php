@@ -21,8 +21,6 @@ class Store extends Model
         'longitude',
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
-
     /**
      * The attributes that should be cast to native types.
      *

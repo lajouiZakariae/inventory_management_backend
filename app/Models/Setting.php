@@ -15,11 +15,14 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'value',
-        'default',
         'platform',
+        'settings_value',
+        'settings_default'
     ];
 
-    protected $hidden = ['created_at', 'updated_at', 'default'];
+    protected $hidden = ['id', 'settings_default'];
+
+    protected $casts = ['settings_value' => 'object', 'settings_default' => 'object'];
+
+    public $timestamps = false;
 }

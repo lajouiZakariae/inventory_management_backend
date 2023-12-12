@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('name', ["theme"]);
-            $table->string('value');
-            $table->string('default');
-            $table->enum('platform', ["desktop","web_client","web_admin"]);
-            $table->timestamps();
+            $table->enum('platform', ['desktop', 'web_client', 'web_admin']);
+            $table->json('settings_value');
+            $table->json('settings_default');
         });
     }
 

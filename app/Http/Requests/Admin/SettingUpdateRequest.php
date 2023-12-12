@@ -11,7 +11,7 @@ class SettingUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,13 +19,20 @@ class SettingUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
+    protected function prepareForValidation(): void
+    {
+        $this->replace(['settings_value' => $this->settingsValue]);
+    }
+
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'in:theme'],
-            'value' => ['required', 'string', 'min:1', 'max:255'],
-            'default' => ['required', 'string', 'min:1', 'max:255'],
-            'platform' => ['required', 'string', 'in:desktop,web_client,web_admin']
+            'settings_value' => [
+                'theme' => ['required', 'in:red,green,blue'],
+                'font' => ['required', 'in:poppins,consolas'],
+                'maintenanceMode' => ['required', 'boolean'],
+            ]
         ];
     }
 }

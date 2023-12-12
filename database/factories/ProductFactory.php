@@ -30,7 +30,7 @@ final class ProductFactory extends Factory
             'title' => fake()->title,
             'description' => fake()->optional()->text,
             'cost' => fake()->randomFloat(max: 2500),
-            'price' => fake()->randomFloat(max: 3500),
+            'price' => fake()->randomFloat(max: 2500),
             'stock_quantity' => fake()->randomNumber(),
             'published' => fake()->boolean,
             'category_id' => \App\Models\Category::factory(),

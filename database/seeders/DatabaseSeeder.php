@@ -30,41 +30,52 @@ class DatabaseSeeder extends Seeder
             ["name" => "creator"]
         ]);
 
-        Setting::insert([
-            [
-                'name' => 'theme',
-                'value' => 'green',
-                'default' => 'green',
-                'platform' => 'web_client'
-            ],
-            [
-                'name' => 'theme',
-                'value' => 'red',
-                'default' => 'green',
-                'platform' => 'web_admin'
-            ],
-            [
-                'name' => 'theme',
-                'value' => 'blue',
-                'default' => 'blue',
-                'platform' => 'desktop'
-            ],
-        ]);
+        Setting::factory(3)->create();
+
+        // Setting::insert([
+        //     [
+        //         "platform" => "desktop",
+        //         "settings_value" => json_encode([
+        //             "theme" => "red",
+        //             "font" => "poppins",
+        //             "maintenanceMode" => false
+        //         ]),
+        //         "settings_default" => json_encode([
+        //             "theme" => "blue",
+        //             "font" => "consolas",
+        //             "maintenanceMode" => true
+        //         ]),
+        //     ],
+        //     [
+        //         "platform" => "web_client",
+        //         "settings" => json_encode([
+        //             "theme" => "green",
+        //             "font" => "consolas",
+        //             "maintenanceMode" => false
+        //         ]),
+        //         "settings_default" => json_encode([
+        //             "theme" => "red",
+        //             "font" => "poppins",
+        //             "maintenanceMode" => false
+        //         ]),
+        //     ],
+        // ]);
 
         $this->call([
             // StoreSeeder::class,
             // CategorySeeder::class,
-            // PaymentMethodSeeder::class,
+            // SettingSeeder::class,
+            PaymentMethodSeeder::class,
             // ProductSeeder::class,
             // HistorySeeder::class,
             // ReviewSeeder::class,
             // MediaSeeder::class,
             // SupplierSeeder::class,
             // PurchaseSeeder::class,
-            PurchaseItemSeeder::class,
+            // PurchaseItemSeeder::class,
             // CouponCodeSeeder::class,
             // OrderSeeder::class,
-            OrderItemSeeder::class,
+            // OrderItemSeeder::class,
         ]);
     }
 }

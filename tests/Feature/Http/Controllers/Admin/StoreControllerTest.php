@@ -20,7 +20,7 @@ final class StoreControllerTest extends TestCase
     #[Test]
     public function index_behaves_as_expected(): void
     {
-        $stores = Store::factory()->count(3)->create();
+        Store::factory()->count(3)->create();
 
         $response = $this->get(route('stores.index'));
 
@@ -73,15 +73,13 @@ final class StoreControllerTest extends TestCase
             'address' => $address,
         ]);
 
-        $store->refresh();
+        $store->refresh(); // Get Updated Data
 
-        $response->assertOk();
-        $response->assertJsonStructure([]);
+        $response->assertNoContent();
 
         $this->assertEquals($name, $store->name);
         $this->assertEquals($address, $store->address);
     }
-
 
     #[Test]
     public function destroy_deletes_and_responds_with(): void

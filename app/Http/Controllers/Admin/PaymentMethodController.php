@@ -22,6 +22,11 @@ class PaymentMethodController extends Controller
         return response()->make(PaymentMethodResource::collection($paymentMethods->get()));
     }
 
+    public function show(PaymentMethod $paymentMethod): Response
+    {
+        return response()->make(new PaymentMethodResource($paymentMethod));
+    }
+
     public function store(PaymentMethodPostRequest $request): Response
     {
         $paymentMethod = PaymentMethod::create($request->validated());
