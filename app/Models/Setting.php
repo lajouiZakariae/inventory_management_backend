@@ -25,4 +25,9 @@ class Setting extends Model
     protected $casts = ['settings_value' => 'object', 'settings_default' => 'object'];
 
     public $timestamps = false;
+
+    public function getRouteKeyName()
+    {
+        return "platform";
+    }
 }

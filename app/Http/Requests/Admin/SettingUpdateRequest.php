@@ -20,19 +20,13 @@ class SettingUpdateRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
 
-    protected function prepareForValidation(): void
-    {
-        $this->replace(['settings_value' => $this->settingsValue]);
-    }
 
     public function rules(): array
     {
         return [
-            'settings_value' => [
-                'theme' => ['required', 'in:red,green,blue'],
-                'font' => ['required', 'in:poppins,consolas'],
-                'maintenanceMode' => ['required', 'boolean'],
-            ]
+            'theme' => ['required', 'in:red,green,blue'],
+            'font' => ['required', 'in:poppins,consolas'],
+            'maintenanceMode' => ['required', 'boolean']
         ];
     }
 }

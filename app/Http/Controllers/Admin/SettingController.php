@@ -12,16 +12,16 @@ use Illuminate\Http\Response;
 
 class SettingController extends Controller
 {
-    public function show(Setting $setting)
+    public function show(Setting $setting): Response
     {
-        return response()->make(new SettingResource($setting));
+        return response(new SettingResource($setting));
     }
 
     public function update(SettingUpdateRequest $request, Setting $setting)
     {
         $data = $request->validated();
 
-        $setting->update($data);
+        $setting->update(['settings_value' => $data]);
 
         return response()->noContent();
     }

@@ -24,10 +24,5 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::apiResource('stores', App\Http\Controllers\Admin\StoreController::class);
 
-    Route::get('settings/{setting:platform}', [App\Http\Controllers\Admin\SettingController::class, 'show'])
-        ->name('settings.show')
-        ->whereIn("platform", array_column(Platforms::cases(), 'value'));
-
-    Route::put('settings/{setting:platform}', [App\Http\Controllers\Admin\SettingController::class, 'update'])
-        ->name('settings.update');
+    Route::apiResource('settings', \App\Http\Controllers\Admin\SettingController::class)->only('show', 'update');
 });

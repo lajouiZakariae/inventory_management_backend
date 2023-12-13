@@ -49,10 +49,7 @@ final class SettingControllerTest extends TestCase
             'maintenanceMode' => fake()->boolean(1)
         ];
 
-        $response = $this->put(route('settings.update', $setting), [
-            'platform' => $setting->platform,
-            'settingsValue' => $settings_value
-        ]);
+        $response = $this->put(route('settings.update', $setting), $settings_value);
 
         $setting->refresh();
 
