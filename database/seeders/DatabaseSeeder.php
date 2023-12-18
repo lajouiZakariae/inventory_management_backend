@@ -9,13 +9,11 @@ use App\Models\Role;
 use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder {
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
+    public function run(): void {
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
@@ -73,7 +71,7 @@ class DatabaseSeeder extends Seeder
             // SupplierSeeder::class,
             // PurchaseSeeder::class,
             // PurchaseItemSeeder::class,
-            // CouponCodeSeeder::class,
+            CouponCodeSeeder::class,
             // OrderSeeder::class,
             // OrderItemSeeder::class,
         ]);

@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin'], function () {
         'payment-methods' => App\Http\Controllers\Admin\PaymentMethodController::class,
         'stores' => App\Http\Controllers\Admin\StoreController::class,
         'suppliers' => App\Http\Controllers\Admin\SupplierController::class,
+        'coupon-codes' => App\Http\Controllers\Admin\CouponCodeController::class,
     ]);
 
     Route::apiResource('settings', \App\Http\Controllers\Admin\SettingController::class)->only('show', 'update');
@@ -35,9 +36,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('categories', CategoryController::class);
     // Route::apiResource('media', App\Http\Controllers\Admin\MediaController::class);
 });
-
-
-Route::apiResource('supplier', App\Http\Controllers\Admin\SupplierController::class);
-
 
 Route::apiResource('coupon-code', App\Http\Controllers\Admin\CouponCodeController::class);

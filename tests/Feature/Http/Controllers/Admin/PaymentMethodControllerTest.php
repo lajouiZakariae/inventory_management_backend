@@ -26,7 +26,6 @@ final class PaymentMethodControllerTest extends TestCase {
         $response->assertJsonStructure(['*' => ['id', 'name', 'description', 'url']]);
     }
 
-
     #[Test]
     public function store_saves(): void {
         $name = $this->faker->name;
@@ -104,7 +103,6 @@ final class PaymentMethodControllerTest extends TestCase {
 
         $this->assertEquals($name, $paymentMethod->name);
     }
-
 
     #[Test]
     public function destroy_deletes_and_responds_with(): void {

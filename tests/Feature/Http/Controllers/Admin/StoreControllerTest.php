@@ -24,7 +24,9 @@ final class StoreControllerTest extends TestCase {
 
         $response
             ->assertOk()
-            ->assertJsonStructure(['*' => ['id', 'name', 'address', 'latitude', 'longitude', 'url']])
+            ->assertJsonStructure([
+                '*' => ['id', 'name', 'address', 'latitude', 'longitude', 'url']
+            ])
             ->assertJson(function (AssertableJson $json) {
                 $json->has(3);
             });
