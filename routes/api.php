@@ -22,15 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::apiResource('payment-methods', App\Http\Controllers\Admin\PaymentMethodController::class);
 
-    Route::apiResource('stores', App\Http\Controllers\Admin\StoreController::class);
+    Route::apiResources([
+        'payment-methods' => App\Http\Controllers\Admin\PaymentMethodController::class,
+        'stores' => App\Http\Controllers\Admin\StoreController::class,
+    ]);
 
     Route::apiResource('settings', \App\Http\Controllers\Admin\SettingController::class)->only('show', 'update');
-
-    Route::get('products/{product}/media/{media}', function (Product $product, Media $media) {
-        return [$product, $media];
-    })->scopeBindings();
 
     // Route::apiResource('media', App\Http\Controllers\Admin\MediaController::class);
 });

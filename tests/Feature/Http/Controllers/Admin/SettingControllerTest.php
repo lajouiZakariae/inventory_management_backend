@@ -50,7 +50,6 @@ final class SettingControllerTest extends TestCase {
 
         $setting->refresh();
 
-        $setting->dump();
         $response->assertNoContent();
 
         $this->assertEquals($settings_value['theme'], $setting->settings_value->theme);
