@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PaymentMethodPostRequest;
 use App\Http\Resources\Admin\PaymentMethodResource;
 use App\Models\PaymentMethod;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PaymentMethodController extends Controller {
