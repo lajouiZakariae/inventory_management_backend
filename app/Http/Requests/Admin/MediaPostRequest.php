@@ -4,12 +4,12 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest {
+class MediaPostRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
-        return true;
+        return false;
     }
 
     /**
@@ -19,10 +19,10 @@ class StorePostRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'name' => ['required', 'string', 'min:1', 'max:255'],
-            'address' => ['required', 'string', 'min:1', 'max:255'],
-            'latitude' => ['nullable', 'numeric'],
-            'longitude' => ['nullable', 'numeric']
+            'alt_text' => ['required', 'string', 'min:1', 'max:255'],
+            'path' => ['required', 'string', 'min:1', 'max:255'],
+            'type' => ['required', 'string', 'in:image,video'],
+            'product_id' => ['required', 'exists:products,id']
         ];
     }
 }

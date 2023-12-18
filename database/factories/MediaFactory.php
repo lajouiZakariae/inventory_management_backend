@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\Media;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends Factory<\App\Models\Media>
@@ -13,22 +14,22 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class MediaFactory extends Factory
 {
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Media::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [
             'alt_text' => fake()->word,
-            'path' => fake()->word,
+            'path' => fake()->image(storage_path("app/public/products"), fullPath: false),
             'type' => fake()->randomElement(['image', 'video']),
             'product_id' => \App\Models\Product::factory(),
         ];

@@ -1,6 +1,8 @@
 <?php
 
 use App\Enums\Platforms;
+use App\Models\Media;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +27,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::apiResource('stores', App\Http\Controllers\Admin\StoreController::class);
 
     Route::apiResource('settings', \App\Http\Controllers\Admin\SettingController::class)->only('show', 'update');
+
+    Route::get('products/{product}/media/{media}', function (Product $product, Media $media) {
+        return [$product, $media];
+    })->scopeBindings();
+
+    // Route::apiResource('media', App\Http\Controllers\Admin\MediaController::class);
 });

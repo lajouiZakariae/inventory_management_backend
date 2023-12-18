@@ -2,8 +2,7 @@
 
 namespace App\Enums;
 
-enum Roles
-{
+enum Roles {
     public const ADMIN = 1;
 
     public const CREATOR = 2;

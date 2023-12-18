@@ -12,13 +12,11 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Admin\SettingController
  */
-final class SettingControllerTest extends TestCase
-{
+final class SettingControllerTest extends TestCase {
     use  RefreshDatabase, WithFaker;
 
     #[Test]
-    public function show_behaves_as_expected(): void
-    {
+    public function show_behaves_as_expected(): void {
         $settings = Setting::factory()->create();
 
         $response = $this->get(route('settings.show',  $settings));
@@ -39,8 +37,7 @@ final class SettingControllerTest extends TestCase
     }
 
     #[Test]
-    public function update_behaves_as_expected(): void
-    {
+    public function update_behaves_as_expected(): void {
         $setting = Setting::factory()->create();
 
         $settings_value =  [
