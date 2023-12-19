@@ -17,18 +17,18 @@ use Tests\TestCase;
 final class ProductControllerTest extends TestCase {
     use WithFaker;
 
-    // #[Test]
-    // public function index_behaves_as_expected(): void {
-    //     $products = Product::factory()->count(3)->create();
+    #[Test]
+    public function index_behaves_as_expected(): void {
+        $products = Product::factory()->count(3)->create();
 
-    //     $response = $this->get(route('products.index'));
+        $response = $this->get(route('products.index'));
 
-    //     $response->assertOk();
+        $response->assertOk();
 
-    //     $response->assertJsonStructure(['*' => [
-    //         'id', 'title', 'description', 'cost', 'price', 'stockQuantity', 'published', 'categoryId', 'storeId', 'url'
-    //     ]]);
-    // }
+        $response->assertJsonStructure(['*' => [
+            'id', 'title', 'description', 'cost', 'price', 'stockQuantity', 'published', 'categoryId', 'storeId', 'url'
+        ]]);
+    }
 
     #[Test]
     public function store_saves(): void {
@@ -65,7 +65,6 @@ final class ProductControllerTest extends TestCase {
 
         $response->assertCreated();
     }
-
 
     #[Test]
     public function show_behaves_as_expected(): void {
@@ -110,7 +109,6 @@ final class ProductControllerTest extends TestCase {
         $this->assertEquals($published, $product->published);
         $this->assertEquals($category->id, $product->category_id);
     }
-
 
     #[Test]
     public function destroy_deletes_and_responds_with(): void {
