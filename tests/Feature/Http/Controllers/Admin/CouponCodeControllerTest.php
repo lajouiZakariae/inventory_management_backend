@@ -59,7 +59,7 @@ final class CouponCodeControllerTest extends TestCase {
         $response = $this->get(route('coupon-codes.show', $couponCode));
 
         $response->assertOk();
-        $response->assertJsonStructure([]);
+        $response->assertJsonStructure(['id','code','amount']);
     }
 
     #[Test]

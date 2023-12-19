@@ -1,9 +1,6 @@
 <?php
 
-use App\Enums\Platforms;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Models\Media;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +31,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::apiResource('settings', \App\Http\Controllers\Admin\SettingController::class)->only('show', 'update');
 
     Route::get('categories', CategoryController::class);
-    // Route::apiResource('media', App\Http\Controllers\Admin\MediaController::class);
-});
 
-Route::apiResource('coupon-code', App\Http\Controllers\Admin\CouponCodeController::class);
+    Route::apiResource('products', App\Http\Controllers\Admin\ProductController::class);
+});
