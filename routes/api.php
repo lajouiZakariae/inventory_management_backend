@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
         'stores' => App\Http\Controllers\Admin\StoreController::class,
         'suppliers' => App\Http\Controllers\Admin\SupplierController::class,
         'coupon-codes' => App\Http\Controllers\Admin\CouponCodeController::class,
+        'products' => App\Http\Controllers\Admin\ProductController::class,
     ]);
 
     Route::apiResource('settings', \App\Http\Controllers\Admin\SettingController::class)->only('show', 'update');
