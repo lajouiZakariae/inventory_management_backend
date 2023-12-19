@@ -21,7 +21,7 @@ class ProductController extends Controller {
     public function store(ProductPostRequest $request): Response {
         $product = Product::create($request->validated());
 
-        return response('', Response::HTTP_ACCEPTED);
+        return response('', Response::HTTP_CREATED);
     }
 
     public function show(Request $request, Product $product): Response {
