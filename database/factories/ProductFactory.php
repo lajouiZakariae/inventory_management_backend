@@ -10,8 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<\App\Models\Product>
  */
-final class ProductFactory extends Factory
-{
+final class ProductFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -24,17 +23,16 @@ final class ProductFactory extends Factory
      *
      * @return array
      */
-    public function definition(): array
-    {
+    public function definition(): array {
         return [
-            'title' => fake()->title,
+            'title' => fake()->sentence(),
             'description' => fake()->optional()->text,
             'cost' => fake()->randomFloat(max: 2500),
             'price' => fake()->randomFloat(max: 2500),
             'stock_quantity' => fake()->randomNumber(),
             'published' => fake()->boolean,
-            'category_id' => \App\Models\Category::factory(),
-            'store_id' => \App\Models\Store::factory(),
+            'category_id' => fake()->numberBetween(1, 4),
+            'store_id' => fake()->numberBetween(1, 4),
         ];
     }
 }
