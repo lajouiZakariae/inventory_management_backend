@@ -7,7 +7,9 @@ use App\Http\Requests\Admin\SupplierPostRequest;
 use App\Http\Resources\Admin\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Http\Response;
+use Spatie\RouteAttributes\Attributes\ApiResource;
 
+#[ApiResource('suppliers')]
 class SupplierController extends Controller {
     public function index(): Response {
         $suppliers = Supplier::all();

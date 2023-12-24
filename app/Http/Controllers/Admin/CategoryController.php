@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Http\Response;
+use Spatie\RouteAttributes\Attributes\Get;
 
 class CategoryController extends Controller {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke() {
+
+    #[Get('/categories')]
+    public function __invoke(): Response {
         $categories = Category::query();
 
         $categories = request()->input("sortBy") === "oldest"

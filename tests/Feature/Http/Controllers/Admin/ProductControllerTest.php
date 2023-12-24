@@ -15,7 +15,7 @@ use Tests\TestCase;
  * @see \App\Http\Controllers\Admin\ProductController
  */
 final class ProductControllerTest extends TestCase {
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
 
     #[Test]
     public function index_behaves_as_expected(): void {

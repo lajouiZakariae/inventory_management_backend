@@ -1,22 +1,24 @@
-<script setup>
-    import { useQuery, useQueryClient } from '@tanstack/vue-query';
-    import { ref, watch } from 'vue';
-    import apiClient from '../../utils/apiClient';
+<script setup lang="ts">
+import { useQuery, useQueryClient } from "@tanstack/vue-query";
+import { ref, watch } from "vue";
+import apiClient from "../../utils/apiClient";
 
-    import Tablerow from '../components/TableRow.vue';
+import Tablerow from "../components/TableRow.vue";
 
-    const sortBy = ref('latest');
-    const queryClient = useQueryClient();
+const sortBy = ref("latest");
+const queryClient = useQueryClient();
 
-    const { data, isLoading, isError, isSuccess } = useQuery({
-        queryKey: ['payment-methods'],
-        queryFn: () =>
-            apiClient
-                .get(`/payment-methods?sortBy=${sortBy.value}`)
-                .then(req => req.data),
-    });
+const { data, isLoading, isError, isSuccess } = useQuery({
+    queryKey: ["payment-methods"],
+    queryFn: () =>
+        apiClient
+            .get(`/payment-methods?sortBy=${sortBy.value}`)
+            .then((req) => req.data),
+});
 
-    watch(sortBy, _ => queryClient.invalidateQueries(['payment-methods']));
+watch(sortBy, (_) =>
+    queryClient.invalidateQueries({ queryKey: ["payment-methods"] })
+);
 </script>
 
 <template>

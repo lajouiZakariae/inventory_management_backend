@@ -8,7 +8,9 @@ use App\Http\Resources\Admin\StoreResource;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\RouteAttributes\Attributes\ApiResource;
 
+#[ApiResource('stores')]
 class StoreController extends Controller {
     public function index(): Response {
         $stores = Store::query();

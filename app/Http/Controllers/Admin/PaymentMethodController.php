@@ -7,7 +7,9 @@ use App\Http\Requests\Admin\PaymentMethodPostRequest;
 use App\Http\Resources\Admin\PaymentMethodResource;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Response;
+use Spatie\RouteAttributes\Attributes\ApiResource;
 
+#[ApiResource('payment-methods')]
 class PaymentMethodController extends Controller {
     public function index(): Response {
         $paymentMethods = PaymentMethod::query();

@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductPostRequest;
-use App\Http\Requests\Admin\ProductStoreRequest;
-use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Http\Resources\Admin\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\RouteAttributes\Attributes\ApiResource;
+use Spatie\RouteAttributes\Attributes\Get;
 
+#[ApiResource('products')]
 class ProductController extends Controller {
     public function index(): Response {
         $products = Product::all();
@@ -38,5 +41,15 @@ class ProductController extends Controller {
         $product->delete();
 
         return response()->noContent();
+    }
+
+    #[Get('/categories/{category}/products')]
+    public function categoryProducts(Category $category): Response {
+        return response(ProductResource::collection($category->products));
+    }
+
+    #[Get('/stores/{store}/products')]
+    public function storeProducts(Store $store): Response {
+        return response(ProductResource::collection($store->products));
     }
 }

@@ -8,7 +8,9 @@ use App\Http\Resources\Admin\CouponCodeCollection;
 use App\Http\Resources\Admin\CouponCodeResource;
 use App\Models\CouponCode;
 use Illuminate\Http\Response;
+use Spatie\RouteAttributes\Attributes\ApiResource;
 
+#[ApiResource('coupon-codes')]
 class CouponCodeController extends Controller {
     public function index(): Response {
         $couponCodes = CouponCode::all();

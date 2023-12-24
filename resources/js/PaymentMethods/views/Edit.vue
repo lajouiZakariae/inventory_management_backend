@@ -1,32 +1,32 @@
 <script setup>
-    import { reactive, ref, watch, watchEffect } from 'vue';
-    import { useQuery } from '@tanstack/vue-query';
-    import { useRoute } from 'vue-router';
-    import apiClient from '../../utils/apiClient';
-    import useUpdate from '../mutations/useUpdate';
-    import PageHeading from '../../components/PageHeading.vue';
+import { reactive, ref, watch, watchEffect } from "vue";
+import { useQuery } from "@tanstack/vue-query";
+import { useRoute } from "vue-router";
+import apiClient from "../../utils/apiClient";
+import useUpdate from "../mutations/useUpdate";
+import PageHeading from "../../components/PageHeading.vue";
 
-    const { id } = useRoute().params;
+const { id } = useRoute().params;
 
-    const { isLoading, data, isError, error, isSuccess } = useQuery({
-        queryKey: ['payment-methods', id],
-        queryFn: async () => {
-            const res = await apiClient.get('/payment-methods/' + id);
-            return res.data;
-        },
-    });
+const { isLoading, data, isError, error, isSuccess } = useQuery({
+    queryKey: ["payment-methods", id],
+    queryFn: async () => {
+        const res = await apiClient.get("/payment-methods/" + id);
+        return res.data;
+    },
+});
 
-    const { mutate } = useUpdate(id);
+const { mutate } = useUpdate(id);
 
-    const paymentMethod = reactive({
-        name: data.value?.name,
-        description: data.value?.description,
-    });
+const paymentMethod = reactive({
+    name: data.value?.name,
+    description: data.value?.description,
+});
 
-    watch(data, newVal => {
-        paymentMethod.name = newVal.name;
-        paymentMethod.description = newVal.description;
-    });
+watch(data, (newVal) => {
+    paymentMethod.name = newVal.name;
+    paymentMethod.description = newVal.description;
+});
 </script>
 
 <template>
@@ -37,7 +37,7 @@
             <div class="col-7 mx-auto mt-4">
                 <p v-if="isLoading">Loading...</p>
 
-                <p v-if="isError && error.response.status === 404">
+                <p v-if="error && error.response.status === 404">
                     Resource Not Found
                 </p>
 
