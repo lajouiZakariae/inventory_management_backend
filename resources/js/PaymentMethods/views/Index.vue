@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { useQuery, useQueryClient } from "@tanstack/vue-query";
 import { ref, watch } from "vue";
 import apiClient from "../../utils/apiClient";
@@ -51,7 +51,7 @@ watch(sortBy, (_) =>
         </thead>
         <tbody>
             <Tablerow
-                v-if="data.length > 0"
+                v-if="data && data.length > 0"
                 v-for="paymentMethod in data"
                 v-bind="paymentMethod"
                 :key="paymentMethod.id"

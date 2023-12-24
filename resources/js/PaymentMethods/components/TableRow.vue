@@ -1,5 +1,7 @@
-<script setup>
-    defineProps({ id: Number, name: String, url: String });
+<script setup lang="ts">
+import { PaymentMethod } from "../../../../types";
+
+defineProps<PaymentMethod>();
 </script>
 
 <template>
@@ -18,7 +20,7 @@
 </template>
 
 <style scoped>
-    i {
-        cursor: pointer;
-    }
+i {
+    cursor: pointer;
+}
 </style>

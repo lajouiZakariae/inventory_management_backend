@@ -1,173 +1,171 @@
 export interface Category {
-    // columns
-    id: number;
+    id?: number;
     name: string;
-    description: string | null;
+    description?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface CouponCode {
-    // columns
-    id: number;
+    id?: number;
     code: string;
     amount: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface History {
-    // columns
-    id: number;
-    operation: string;
-    product_id: number;
-
-    // relations
-    product: Product;
+    id?: number;
+    operation: Operation;
+    productId: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
-export interface Media {
-    // columns
-    id: number;
-    alt_text: string;
+export enum Operation {
+    DAMAGE = "damage",
+    ORDER = "order",
+    SALE = "sale",
+}
+
+export interface Medium {
+    id?: number;
+    altText: string;
     path: string;
-    type: string;
-    product_id: number;
-
-    // relations
-    product: Product;
+    type: Type;
+    productId: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
-export interface Order {
-    // columns
-    id: number;
-    full_name: string;
-    email: string;
-    phone_number: string;
-    status: string;
-    city: string;
-    payment_method_id: number;
-    zip_code: string;
-    coupon_code_id: number;
-    address: string;
-    delivery: boolean;
-
-    // relations
-    payment_method: PaymentMethod;
-    coupon_code: CouponCode;
+export enum Type {
+    IMAGE = "image",
+    VIDEO = "video",
 }
 
 export interface OrderItem {
-    // columns
-    id: number;
-    order_id: number;
-    product_id: number;
+    id?: number;
+    orderId: number;
+    productId: number;
     quantity: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
 
-    // relations
-    order: Order;
-    poduct: Product;
+export interface Order {
+    id?: number;
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    status: Status;
+    city: string;
+    paymentMethodId: number;
+    zipCode: string;
+    couponCodeId: number;
+    address: string;
+    delivery: boolean;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+export enum Status {
+    PENDING = "pending",
+    IN_TRANSIT = "in transit",
+    DELIVERED = "delivered",
+    DELIVERY_ATTEMPT = "delivery attempt",
+    CANCELLED = "cancelled",
+    RETURN_TO_SENDER = "return to sender",
 }
 
 export interface PaymentMethod {
-    // columns
-    id: number;
+    id?: number;
     name: string;
-    description: string | null;
+    description?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    url?: string;
 }
 
 export interface Product {
-    // columns
-    id: number;
+    id?: number;
     title: string;
-    description: string | null;
+    description?: string;
     cost: number;
     price: number;
-    stock_quantity: number;
+    stockQuantity: number;
     published: boolean;
-    category_id: number;
-    store_id: number | null;
-
-    // relations
-    category: Category;
-    store: Store;
-    media: Media[];
-}
-
-export interface Purchase {
-    // columns
-    id: number;
-    supplier_id: number;
-    delivery_date: string;
-    paid: boolean;
-    payment_method_id: number | null;
-    store_id: number;
-
-    // relations
-    supplier: Supplier;
-    payment_method: PaymentMethod;
-    store: Store;
+    categoryId: number;
+    storeId?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface PurchaseItem {
-    // columns
-    id: number;
-    purchase_id: number;
-    product_id: number;
+    id?: number;
+    purchaseId: number;
+    productId: number;
     quantity: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
 
-    // relations
-    purchase: Purchase;
-    product: Product;
+export interface Purchase {
+    id?: number;
+    supplierId: number;
+    deliveryDate: Date;
+    paid: boolean;
+    paymentMethodId?: number;
+    storeId: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface Review {
-    // columns
-    id: number;
+    id?: number;
     email: string;
     body: string;
-    product_id: number;
+    productId: number;
     approved: boolean;
-
-    // relations
-    product: Product;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface Role {
-    // columns
-    id: number;
+    id?: number;
     name: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface Setting {
-    // columns
     id?: number;
-    platform: string;
-    settings_value: Record<string, unknown>;
-    settings_default?: Record<string, unknown>;
+    platform: Platform;
+    settingsValue: string;
+    settingsDefault: string;
+}
+
+export enum Platform {
+    DESKTOP = "desktop",
+    WEB_CLIENT = "web_client",
+    WEB_ADMIN = "web_admin",
 }
 
 export interface Store {
-    // columns
-    id: number;
+    id?: number;
     name: string;
-    address: string | null;
-    latitude: number | null;
-    longitude: number | null;
+    address?: string;
+    latitude?: number;
+    longitude?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface Supplier {
-    // columns
-    id: number;
+    id?: number;
     name: string;
     email: string;
-    phone_number: string;
+    phoneNumber: string;
     address: string;
-    created_at?: string | null;
-    updated_at?: string | null;
-}
-
-export interface User {
-    // columns
-    id: number;
-    first_name: string;
-    last_name: string;
-    role_id: number;
-    email: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

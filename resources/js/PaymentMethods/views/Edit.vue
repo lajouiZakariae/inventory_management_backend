@@ -1,10 +1,12 @@
 <script setup>
+import { PaymentMethod } from "../../../../types";
 import { reactive, ref, watch, watchEffect } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { useRoute } from "vue-router";
 import apiClient from "../../utils/apiClient";
 import useUpdate from "../mutations/useUpdate";
 import PageHeading from "../../components/PageHeading.vue";
+import { AxiosError } from "axios";
 
 const { id } = useRoute().params;
 
@@ -24,8 +26,8 @@ const paymentMethod = reactive({
 });
 
 watch(data, (newVal) => {
-    paymentMethod.name = newVal.name;
-    paymentMethod.description = newVal.description;
+    paymentMethod.name = newVal?.name;
+    paymentMethod.description = newVal?.description;
 });
 </script>
 
@@ -37,11 +39,15 @@ watch(data, (newVal) => {
             <div class="col-7 mx-auto mt-4">
                 <p v-if="isLoading">Loading...</p>
 
-                <p v-if="error && error.response.status === 404">
+                <p
+                    v-if="
+                        error && error.response && error.response.status === 404
+                    "
+                >
                     Resource Not Found
                 </p>
 
-                <template v-if="isSuccess">
+                <template v-if="isSuccess && data">
                     <!-- Form Input -->
                     <div class="row align-items-center mb-2">
                         <div class="col-3">
