@@ -8,9 +8,11 @@ use App\Http\Requests\Admin\ReviewStoreRequest;
 use App\Http\Requests\Admin\ReviewUpdateRequest;
 use App\Http\Resources\Admin\ReviewCollection;
 use App\Http\Resources\Admin\ReviewResource;
+use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
+use Spatie\RouteAttributes\Attributes\Get;
 
 #[ApiResource('reviews')]
 class ReviewController extends Controller
@@ -48,5 +50,11 @@ class ReviewController extends Controller
         $review->delete();
 
         return response()->noContent();
+    }
+
+    #[Get('/products/{product}/reviews')]
+    public function productReviews(Product $product): Response
+    {
+        return response($product->reviews);
     }
 }
