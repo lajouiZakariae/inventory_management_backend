@@ -14,11 +14,13 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Admin\CouponCodeController
  */
-final class CouponCodeControllerTest extends TestCase {
+final class CouponCodeControllerTest extends TestCase
+{
     use RefreshDatabase, WithFaker;
 
     #[Test]
-    public function index_behaves_as_expected(): void {
+    public function index_behaves_as_expected(): void
+    {
         $couponCodes = CouponCode::factory()->count(3)->create();
 
         $response = $this->get(route('coupon-codes.index'));
@@ -33,7 +35,8 @@ final class CouponCodeControllerTest extends TestCase {
     }
 
     #[Test]
-    public function store_saves(): void {
+    public function store_saves(): void
+    {
         $code = $this->faker->word;
         $amount = $this->faker->numberBetween(0, 100);
 
@@ -53,17 +56,19 @@ final class CouponCodeControllerTest extends TestCase {
     }
 
     #[Test]
-    public function show_behaves_as_expected(): void {
+    public function show_behaves_as_expected(): void
+    {
         $couponCode = CouponCode::factory()->create();
 
         $response = $this->get(route('coupon-codes.show', $couponCode));
 
         $response->assertOk();
-        $response->assertJsonStructure(['id','code','amount']);
+        $response->assertJsonStructure(['id', 'code', 'amount']);
     }
 
     #[Test]
-    public function update_behaves_as_expected(): void {
+    public function update_behaves_as_expected(): void
+    {
         $couponCode = CouponCode::factory()->create();
         $code = $this->faker->word;
         $amount = $this->faker->numberBetween(0, 100);
@@ -82,7 +87,8 @@ final class CouponCodeControllerTest extends TestCase {
     }
 
     #[Test]
-    public function destroy_deletes_and_responds_with(): void {
+    public function destroy_deletes_and_responds_with(): void
+    {
         $couponCode = CouponCode::factory()->create();
 
         $response = $this->delete(route('coupon-codes.destroy', $couponCode));

@@ -13,11 +13,13 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Admin\StoreController
  */
-final class StoreControllerTest extends TestCase {
+final class StoreControllerTest extends TestCase
+{
     use RefreshDatabase, WithFaker;
 
     #[Test]
-    public function index_behaves_as_expected(): void {
+    public function index_behaves_as_expected(): void
+    {
         Store::factory()->count(3)->create();
 
         $response = $this->get(route('stores.index'));
@@ -33,7 +35,8 @@ final class StoreControllerTest extends TestCase {
     }
 
     #[Test]
-    public function store_saves(): void {
+    public function store_saves(): void
+    {
         $name = $this->faker->name;
         $address = $this->faker->word;
 
@@ -61,7 +64,8 @@ final class StoreControllerTest extends TestCase {
     }
 
     #[Test]
-    public function update_behaves_as_expected(): void {
+    public function update_behaves_as_expected(): void
+    {
         $store = Store::factory()->create();
         $name = $this->faker->name;
         $address = $this->faker->word;
@@ -80,7 +84,8 @@ final class StoreControllerTest extends TestCase {
     }
 
     #[Test]
-    public function destroy_deletes_and_responds_with(): void {
+    public function destroy_deletes_and_responds_with(): void
+    {
         $store = Store::factory()->create();
 
         $response = $this->delete(route('stores.destroy', $store));

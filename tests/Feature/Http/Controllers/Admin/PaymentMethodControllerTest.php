@@ -12,11 +12,13 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Admin\PaymentMethodController
  */
-final class PaymentMethodControllerTest extends TestCase {
+final class PaymentMethodControllerTest extends TestCase
+{
     use RefreshDatabase, WithFaker;
 
     #[Test]
-    public function index_behaves_as_expected(): void {
+    public function index_behaves_as_expected(): void
+    {
         PaymentMethod::factory()->count(3)->create();
 
         $response = $this->get(route('payment-methods.index'));
@@ -27,7 +29,8 @@ final class PaymentMethodControllerTest extends TestCase {
     }
 
     #[Test]
-    public function store_saves(): void {
+    public function store_saves(): void
+    {
         $name = $this->faker->name;
 
         $response = $this->post(route('payment-methods.store'), [
@@ -51,7 +54,8 @@ final class PaymentMethodControllerTest extends TestCase {
     }
 
     #[Test]
-    public function store_respond_with_errors(): void {
+    public function store_respond_with_errors(): void
+    {
         $name = '';
         $name_with_special_chars = '';
 
@@ -69,7 +73,8 @@ final class PaymentMethodControllerTest extends TestCase {
     }
 
     #[Test]
-    public function show_behaves_as_expected(): void {
+    public function show_behaves_as_expected(): void
+    {
         $paymentMethod = PaymentMethod::factory()->create();
 
         $response = $this->get(route('payment-methods.show', $paymentMethod));
@@ -87,7 +92,8 @@ final class PaymentMethodControllerTest extends TestCase {
     }
 
     #[Test]
-    public function update_behaves_as_expected(): void {
+    public function update_behaves_as_expected(): void
+    {
         $paymentMethod = PaymentMethod::factory()->create();
 
         $name = $this->faker->name;
@@ -105,7 +111,8 @@ final class PaymentMethodControllerTest extends TestCase {
     }
 
     #[Test]
-    public function destroy_deletes_and_responds_with(): void {
+    public function destroy_deletes_and_responds_with(): void
+    {
         $paymentMethod = PaymentMethod::factory()->create();
 
         $response = $this->delete(route('payment-methods.destroy', $paymentMethod));
@@ -116,7 +123,8 @@ final class PaymentMethodControllerTest extends TestCase {
     }
 
     #[Test]
-    public function destroy_responds_with_not_found(): void {
+    public function destroy_responds_with_not_found(): void
+    {
         $response = $this->delete(route('payment-methods.destroy', ['payment_method' => 188]));
 
         $response->assertNotFound();

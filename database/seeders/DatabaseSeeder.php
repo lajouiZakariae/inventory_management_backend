@@ -20,11 +20,13 @@ use App\Models\Store;
 use App\Models\Supplier;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
     /**
      * Seed the application's database.
      */
-    public function run(): void {
+    public function run(): void
+    {
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
@@ -162,7 +164,7 @@ class DatabaseSeeder extends Seeder {
                 'cost' => 899.99,
                 'stock_quantity' => 100,
                 'category_id' => 2,
-                'published' => true,
+                'published' => false,
                 'store_id' => 2,
             ],
             [

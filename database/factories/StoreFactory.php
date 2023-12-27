@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<\App\Models\Store>
  */
-final class StoreFactory extends Factory {
+final class StoreFactory extends Factory
+{
     /**
      * The name of the factory's corresponding model.
      *
@@ -23,7 +24,8 @@ final class StoreFactory extends Factory {
      *
      * @return array
      */
-    public function definition(): array {
+    public function definition(): array
+    {
         return [
             'name' => fake()->name,
             'address' => fake()->address,

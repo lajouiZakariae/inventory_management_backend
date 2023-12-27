@@ -10,8 +10,10 @@ use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 
 #[ApiResource('payment-methods')]
-class PaymentMethodController extends Controller {
-    public function index(): Response {
+class PaymentMethodController extends Controller
+{
+    public function index(): Response
+    {
         $paymentMethods = PaymentMethod::query();
 
         $paymentMethods = request()->input("sortBy") === "oldest"
@@ -21,23 +23,27 @@ class PaymentMethodController extends Controller {
         return response()->make(PaymentMethodResource::collection($paymentMethods->get()));
     }
 
-    public function show(PaymentMethod $paymentMethod): Response {
+    public function show(PaymentMethod $paymentMethod): Response
+    {
         return response()->make(new PaymentMethodResource($paymentMethod));
     }
 
-    public function store(PaymentMethodPostRequest $request): Response {
+    public function store(PaymentMethodPostRequest $request): Response
+    {
         $paymentMethod = PaymentMethod::create($request->validated());
 
         return response()->make($paymentMethod, Response::HTTP_CREATED);
     }
 
-    public function update(PaymentMethodPostRequest $request, PaymentMethod $paymentMethod): Response {
+    public function update(PaymentMethodPostRequest $request, PaymentMethod $paymentMethod): Response
+    {
         $paymentMethod->update($request->validated());
 
         return response()->make(status: Response::HTTP_NO_CONTENT);
     }
 
-    public function destroy(PaymentMethod $paymentMethod): Response {
+    public function destroy(PaymentMethod $paymentMethod): Response
+    {
         $paymentMethod->delete();
 
         return response()->make(status: Response::HTTP_NO_CONTENT);

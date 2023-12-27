@@ -7,10 +7,12 @@ use App\Models\Category;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\Get;
 
-class CategoryController extends Controller {
+class CategoryController extends Controller
+{
 
     #[Get('/categories')]
-    public function __invoke(): Response {
+    public function index(): Response
+    {
         $categories = Category::query();
 
         $categories = request()->input("sortBy") === "oldest"

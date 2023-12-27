@@ -4,11 +4,13 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CouponCodePostRequest extends FormRequest {
+class CouponCodePostRequest extends FormRequest
+{
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool {
+    public function authorize(): bool
+    {
         return true;
     }
 
@@ -17,7 +19,8 @@ class CouponCodePostRequest extends FormRequest {
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array {
+    public function rules(): array
+    {
         return [
             'code' => ['required', 'string', 'min:1', 'max:255'],
             'amount' => ['required', 'integer', 'min:0', 'max:100']

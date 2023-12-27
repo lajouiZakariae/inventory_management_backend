@@ -12,7 +12,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<\App\Models\Product>
  */
-final class ProductFactory extends Factory {
+final class ProductFactory extends Factory
+{
     /**
      * The name of the factory's corresponding model.
      *
@@ -25,7 +26,8 @@ final class ProductFactory extends Factory {
      *
      * @return array
      */
-    public function definition(): array {
+    public function definition(): array
+    {
         return [
             'title' => fake()->sentence(),
             'description' => fake()->optional()->text,

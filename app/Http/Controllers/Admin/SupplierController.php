@@ -10,30 +10,36 @@ use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 
 #[ApiResource('suppliers')]
-class SupplierController extends Controller {
-    public function index(): Response {
+class SupplierController extends Controller
+{
+    public function index(): Response
+    {
         $suppliers = Supplier::all();
 
         return response(SupplierResource::collection($suppliers));
     }
 
-    public function store(SupplierPostRequest $request): Response {
+    public function store(SupplierPostRequest $request): Response
+    {
         $supplier = Supplier::create($request->validated());
 
         return response('', Response::HTTP_CREATED);
     }
 
-    public function show(Supplier $supplier): Response {
+    public function show(Supplier $supplier): Response
+    {
         return response(new SupplierResource($supplier));
     }
 
-    public function update(SupplierPostRequest $request, Supplier $supplier): Response {
+    public function update(SupplierPostRequest $request, Supplier $supplier): Response
+    {
         $supplier->update($request->validated());
 
         return response()->noContent();
     }
 
-    public function destroy(Supplier $supplier): Response {
+    public function destroy(Supplier $supplier): Response
+    {
         $supplier->delete();
 
         return response()->noContent();

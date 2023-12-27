@@ -4,11 +4,13 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentMethodPostRequest extends FormRequest {
+class PaymentMethodPostRequest extends FormRequest
+{
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool {
+    public function authorize(): bool
+    {
         return true;
     }
 
@@ -17,7 +19,8 @@ class PaymentMethodPostRequest extends FormRequest {
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array {
+    public function rules(): array
+    {
         return [
             'name' => ['required', 'string', 'min:1', 'max:255'],
             'description' => ['nullable', 'string', 'min:1', 'max:500']

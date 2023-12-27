@@ -10,12 +10,15 @@ use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 
 #[ApiResource('settings', only: ['show', 'update'])]
-class SettingController extends Controller {
-    public function show(Setting $setting): Response {
+class SettingController extends Controller
+{
+    public function show(Setting $setting): Response
+    {
         return response(new SettingResource($setting));
     }
 
-    public function update(SettingUpdateRequest $request, Setting $setting) {
+    public function update(SettingUpdateRequest $request, Setting $setting)
+    {
         $data = $request->validated();
 
         $setting->update(['settings_value' => $data]);

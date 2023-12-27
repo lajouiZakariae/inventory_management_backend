@@ -14,11 +14,13 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Admin\ProductController
  */
-final class ProductControllerTest extends TestCase {
+final class ProductControllerTest extends TestCase
+{
     use RefreshDatabase, WithFaker;
 
     #[Test]
-    public function index_behaves_as_expected(): void {
+    public function index_behaves_as_expected(): void
+    {
         $products = Product::factory()->count(3)->create();
 
         $response = $this->get(route('products.index'));
@@ -31,7 +33,8 @@ final class ProductControllerTest extends TestCase {
     }
 
     #[Test]
-    public function store_saves(): void {
+    public function store_saves(): void
+    {
         $title = $this->faker->sentence(4);
         $cost = $this->faker->randomFloat(max: 25000);
         $price = $this->faker->randomFloat(max: 2500);
@@ -67,7 +70,8 @@ final class ProductControllerTest extends TestCase {
     }
 
     #[Test]
-    public function show_behaves_as_expected(): void {
+    public function show_behaves_as_expected(): void
+    {
         $product = Product::factory()->create();
 
         $response = $this->get(route('products.show', $product));
@@ -79,7 +83,8 @@ final class ProductControllerTest extends TestCase {
     }
 
     #[Test]
-    public function update_behaves_as_expected(): void {
+    public function update_behaves_as_expected(): void
+    {
         $product = Product::factory()->create();
         $title = $this->faker->sentence(4);
         $cost = $this->faker->randomFloat(max: 25000);
@@ -111,7 +116,8 @@ final class ProductControllerTest extends TestCase {
     }
 
     #[Test]
-    public function destroy_deletes_and_responds_with(): void {
+    public function destroy_deletes_and_responds_with(): void
+    {
         $product = Product::factory()->create();
 
         $response = $this->delete(route('products.destroy', $product));

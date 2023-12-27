@@ -12,44 +12,60 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Patch;
 
 #[ApiResource('products')]
-class ProductController extends Controller {
-    public function index(): Response {
+class ProductController extends Controller
+{
+    public function index(): Response
+    {
         $products = Product::all();
 
         return response(ProductResource::collection($products));
     }
 
-    public function store(ProductPostRequest $request): Response {
+    public function store(ProductPostRequest $request): Response
+    {
         $product = Product::create($request->validated());
 
         return response('', Response::HTTP_CREATED);
     }
 
-    public function show(Request $request, Product $product): Response {
+    public function show(Request $request, Product $product): Response
+    {
         return response(new ProductResource($product));
     }
 
-    public function update(ProductPostRequest $request, Product $product): Response {
+    public function update(ProductPostRequest $request, Product $product): Response
+    {
         $product->update($request->validated());
 
         return response()->noContent();
     }
 
-    public function destroy(Product $product): Response {
+    public function destroy(Product $product): Response
+    {
         $product->delete();
 
         return response()->noContent();
     }
 
+    #[Patch('/products/{product}/publish')]
+    function publish(Product $product): Response
+    {
+        $product->publish();
+        return response()->noContent();
+    }
+
     #[Get('/categories/{category}/products')]
-    public function categoryProducts(Category $category): Response {
+    public function categoryProducts(Category $category): Response
+    {
         return response(ProductResource::collection($category->products));
     }
 
     #[Get('/stores/{store}/products')]
-    public function storeProducts(Store $store): Response {
+    public function storeProducts(Store $store): Response
+    {
         return response(ProductResource::collection($store->products));
     }
 }

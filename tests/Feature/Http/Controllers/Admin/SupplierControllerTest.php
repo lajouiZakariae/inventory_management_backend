@@ -13,11 +13,13 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Admin\SupplierController
  */
-final class SupplierControllerTest extends TestCase {
+final class SupplierControllerTest extends TestCase
+{
     use RefreshDatabase, WithFaker;
 
     #[Test]
-    public function index_behaves_as_expected(): void {
+    public function index_behaves_as_expected(): void
+    {
         $suppliers = Supplier::factory()->count(3)->create();
 
         $response = $this->get(route('suppliers.index'));
@@ -31,7 +33,8 @@ final class SupplierControllerTest extends TestCase {
     }
 
     #[Test]
-    public function store_saves(): void {
+    public function store_saves(): void
+    {
         $name = $this->faker->name;
         $email = $this->faker->safeEmail;
         $phone_number = $this->faker->phoneNumber;
@@ -59,7 +62,8 @@ final class SupplierControllerTest extends TestCase {
     }
 
     #[Test]
-    public function show_behaves_as_expected(): void {
+    public function show_behaves_as_expected(): void
+    {
         $supplier = Supplier::factory()->create();
 
         $response = $this->get(route('suppliers.show', $supplier));
@@ -69,7 +73,8 @@ final class SupplierControllerTest extends TestCase {
     }
 
     #[Test]
-    public function update_behaves_as_expected(): void {
+    public function update_behaves_as_expected(): void
+    {
         $supplier = Supplier::factory()->create();
         $name = $this->faker->name;
         $email = $this->faker->safeEmail;
@@ -94,7 +99,8 @@ final class SupplierControllerTest extends TestCase {
     }
 
     #[Test]
-    public function destroy_deletes_and_responds_with(): void {
+    public function destroy_deletes_and_responds_with(): void
+    {
         $supplier = Supplier::factory()->create();
 
         $response = $this->delete(route('suppliers.destroy', $supplier));

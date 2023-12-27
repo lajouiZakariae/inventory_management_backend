@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Product extends Model {
+class Product extends Model
+{
     use HasFactory;
 
     /**
@@ -39,15 +40,24 @@ class Product extends Model {
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function category(): BelongsTo {
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function store(): BelongsTo {
+    public function store(): BelongsTo
+    {
         return $this->belongsTo(Store::class);
     }
 
-    public function media(): HasMany {
+    public function media(): HasMany
+    {
         return $this->hasMany(Media::class);
+    }
+
+    public function publish()
+    {
+        $this->published = true;
+        $this->save();
     }
 }
