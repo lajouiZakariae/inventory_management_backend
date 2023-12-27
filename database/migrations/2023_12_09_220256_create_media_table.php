@@ -15,12 +15,11 @@ return new class extends Migration
 
         Schema::create('media', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->string('alt_text')->default('picture of a product');
             $table->string('path');
-            $table->enum('type', ["image","video"]);
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

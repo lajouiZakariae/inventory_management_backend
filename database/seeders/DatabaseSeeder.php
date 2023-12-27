@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Enums\Roles;
 use App\Models\Category;
 use App\Models\CouponCode;
+use App\Models\Media;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\PaymentMethod;
@@ -19,6 +20,7 @@ use App\Models\Setting;
 use App\Models\Store;
 use App\Models\Supplier;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -763,5 +765,13 @@ class DatabaseSeeder extends Seeder
         ];
 
         OrderItem::insert($order_items);
+
+        foreach (File::allFiles(storage_path('app/public/products')) as $value) {
+            Media::insert([
+                'alt_text' => fake()->word,
+                'path' => 'products/' . $value->getFilename(),
+                'product_id' => fake()->numberBetween(1, 20),
+            ]);
+        }
     }
 }

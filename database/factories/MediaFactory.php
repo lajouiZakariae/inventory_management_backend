@@ -30,7 +30,6 @@ final class MediaFactory extends Factory
         return [
             'alt_text' => fake()->word,
             'path' => fake()->image(storage_path("app/public/products"), fullPath: false),
-            'type' => fake()->randomElement(['image', 'video']),
             'product_id' => \App\Models\Product::factory(),
         ];
     }
