@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ImagePostRequest;
 use App\Http\Resources\Admin\ImageResource;
 use App\Models\Image;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -23,16 +24,30 @@ class ImageController extends Controller
         return response(ImageResource::collection($image));
     }
 
-    public function store(ImagePostRequest $request): Response
+    private function extractData(Image $image, ImagePostRequest $request): array
     {
         $data = $request->validated();
 
         /** @var UploadedFile */
         $uploadedImage  = $request->validated('image');
 
-        if ($uploadedImage !== null && !$uploadedImage->getError()) {
-            $data['path'] = $uploadedImage->store('products', 'public');
+        if ($uploadedImage === null || $uploadedImage->getError()) {
+            return $data;
         }
+
+        /* delete image on upload */
+        if ($image->path) {
+            Storage::disk('public')->delete($image->path);
+        }
+
+        $data['path'] = $uploadedImage->store('products', 'public');
+
+        return $data;
+    }
+
+    public function store(ImagePostRequest $request): Response
+    {
+        $data = $this->extractData(new Image(), $request);
 
         $image = Image::create($data);
 
@@ -44,17 +59,9 @@ class ImageController extends Controller
         return response(new ImageResource($image));
     }
 
-    public function update(ImagePostRequest $request, Image $image): Response
+    public function update(ImagePostRequest $request, Image $image) //: Response
     {
-        $data = $request->validated();
-
-        $image = $request->validated('image');
-
-        if ($image !== null && !$image->getError()) {
-            if ($image->path) {
-                Storage::disk('public')->delete($image->path);
-            }
-        }
+        $data = $this->extractData($image, $request);
 
         $image->update($data);
 
