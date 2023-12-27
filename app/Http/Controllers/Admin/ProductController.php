@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ProductPostRequest;
+use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Http\Resources\Admin\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
@@ -24,9 +24,14 @@ class ProductController extends Controller
         return response(ProductResource::collection($products));
     }
 
-    public function store(ProductPostRequest $request): Response
+    public function store(): Response
     {
-        $product = Product::create($request->validated());
+        $data = request()->validate([
+            'title' => ['required', 'string', 'min:1', 'max:255'],
+            'category_id' => ['required', 'exists:categories,id']
+        ]);
+
+        $product = Product::create($data);
 
         return response('', Response::HTTP_CREATED);
     }
@@ -36,9 +41,11 @@ class ProductController extends Controller
         return response(new ProductResource($product));
     }
 
-    public function update(ProductPostRequest $request, Product $product): Response
+    public function update(ProductUpdateRequest $request, Product $product): Response
     {
-        $product->update($request->validated());
+        $data = $request->validated();
+
+        $product->update($data);
 
         return response()->noContent();
     }

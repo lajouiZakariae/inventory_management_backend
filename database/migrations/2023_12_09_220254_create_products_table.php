@@ -15,17 +15,19 @@ return new class extends Migration
 
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->float('cost');
-            $table->float('price');
-            $table->unsignedInteger('stock_quantity');
+            $table->float('cost')->nullable();
+            $table->float('price')->nullable();
+            $table->unsignedInteger('stock_quantity')->nullable();
             $table->boolean('published')->default(false);
+
             $table->unsignedInteger('category_id')->default(1);
             $table->foreign('category_id')->references('id')->on('categories');
+
             $table->unsignedInteger('store_id')->nullable();
             $table->foreign('store_id')->references('id')->on('stores');
-            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

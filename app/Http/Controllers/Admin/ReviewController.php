@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ReviewPostRequest;
+use App\Http\Requests\Admin\ReviewStoreRequest;
+use App\Http\Requests\Admin\ReviewUpdateRequest;
 use App\Http\Resources\Admin\ReviewResource;
 use App\Models\Product;
 use App\Models\Review;
@@ -21,7 +22,7 @@ class ReviewController extends Controller
         return response(ReviewResource::collection($reviews));
     }
 
-    public function store(ReviewPostRequest $request): Response
+    public function store(ReviewStoreRequest $request): Response
     {
         $review = Review::create($request->validated());
 
@@ -33,7 +34,7 @@ class ReviewController extends Controller
         return response(new ReviewResource($review));
     }
 
-    public function update(ReviewPostRequest $request, Review $review): Response
+    public function update(ReviewUpdateRequest $request, Review $review): Response
     {
         $data = $request->validated();
 

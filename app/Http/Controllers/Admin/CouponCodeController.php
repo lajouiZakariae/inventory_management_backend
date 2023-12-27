@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CouponCodePostRequest;
-use App\Http\Resources\Admin\CouponCodeCollection;
 use App\Http\Resources\Admin\CouponCodeResource;
 use App\Models\CouponCode;
 use Illuminate\Http\Response;
@@ -20,9 +18,14 @@ class CouponCodeController extends Controller
         return response(CouponCodeResource::collection($couponCodes));
     }
 
-    public function store(CouponCodePostRequest $request): Response
+    public function store(): Response
     {
-        $couponCode = CouponCode::create($request->validated());
+        $data = request()->validate([
+            'code' => ['required', 'string', 'min:1', 'max:255'],
+            'amount' => ['required', 'integer', 'min:0', 'max:100']
+        ]);
+
+        $couponCode = CouponCode::create($data);
 
         return response(new CouponCodeResource($couponCode), Response::HTTP_CREATED);
     }
@@ -32,9 +35,14 @@ class CouponCodeController extends Controller
         return response(new CouponCodeResource($couponCode));
     }
 
-    public function update(CouponCodePostRequest $request, CouponCode $couponCode): Response
+    public function update(CouponCode $couponCode): Response
     {
-        $couponCode->update($request->validated());
+        $data = request()->validate([
+            'code' => ['string', 'min:1', 'max:255'],
+            'amount' => ['integer', 'min:0', 'max:100']
+        ]);
+
+        $couponCode->update($data);
 
         return response()->noContent();
     }

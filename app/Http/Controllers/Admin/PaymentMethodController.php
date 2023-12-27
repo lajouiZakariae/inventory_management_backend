@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PaymentMethodPostRequest;
+use App\Http\Requests\Admin\PaymentMethodStoreRequest;
+use App\Http\Requests\Admin\PaymentMethodUpdateRequest;
 use App\Http\Resources\Admin\PaymentMethodResource;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Response;
@@ -28,14 +29,16 @@ class PaymentMethodController extends Controller
         return response()->make(new PaymentMethodResource($paymentMethod));
     }
 
-    public function store(PaymentMethodPostRequest $request): Response
+    public function store(PaymentMethodStoreRequest $request): Response
     {
-        $paymentMethod = PaymentMethod::create($request->validated());
+        $data = $request->validated();
+
+        $paymentMethod = PaymentMethod::create($data);
 
         return response()->make($paymentMethod, Response::HTTP_CREATED);
     }
 
-    public function update(PaymentMethodPostRequest $request, PaymentMethod $paymentMethod): Response
+    public function update(PaymentMethodUpdateRequest $request, PaymentMethod $paymentMethod): Response
     {
         $paymentMethod->update($request->validated());
 

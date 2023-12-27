@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CouponCodePostRequest extends FormRequest
+class PaymentMethodUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class CouponCodePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'min:1', 'max:255'],
-            'amount' => ['required', 'integer', 'min:0', 'max:100']
+            'name' => ['string', 'min:1', 'max:255'],
+            'description' => ['string', 'min:1', 'max:500']
         ];
     }
 }

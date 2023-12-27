@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ImagePostRequest;
+use App\Http\Requests\Admin\ImageStoreRequest;
+use App\Http\Requests\Admin\ImageUpdateRequest;
 use App\Http\Resources\Admin\ImageResource;
 use App\Models\Image;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +24,7 @@ class ImageController extends Controller
         return response(ImageResource::collection($image));
     }
 
-    private function extractData(Image $image, ImagePostRequest $request): array
+    private function extractData(Image $image, $request): array
     {
         $data = $request->validated();
 
@@ -45,7 +45,7 @@ class ImageController extends Controller
         return $data;
     }
 
-    public function store(ImagePostRequest $request): Response
+    public function store(ImageStoreRequest $request): Response
     {
         $data = $this->extractData(new Image(), $request);
 
@@ -59,7 +59,7 @@ class ImageController extends Controller
         return response(new ImageResource($image));
     }
 
-    public function update(ImagePostRequest $request, Image $image) //: Response
+    public function update(ImageUpdateRequest $request, Image $image) //: Response
     {
         $data = $this->extractData($image, $request);
 

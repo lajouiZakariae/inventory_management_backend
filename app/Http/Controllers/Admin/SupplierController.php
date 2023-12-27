@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SupplierPostRequest;
+use App\Http\Requests\Admin\SupplierStoreRequest;
+use App\Http\Requests\Admin\SupplierUpdateRequest;
 use App\Http\Resources\Admin\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Http\Response;
@@ -19,7 +20,7 @@ class SupplierController extends Controller
         return response(SupplierResource::collection($suppliers));
     }
 
-    public function store(SupplierPostRequest $request): Response
+    public function store(SupplierStoreRequest $request): Response
     {
         $supplier = Supplier::create($request->validated());
 
@@ -31,7 +32,7 @@ class SupplierController extends Controller
         return response(new SupplierResource($supplier));
     }
 
-    public function update(SupplierPostRequest $request, Supplier $supplier): Response
+    public function update(SupplierUpdateRequest $request, Supplier $supplier): Response
     {
         $supplier->update($request->validated());
 

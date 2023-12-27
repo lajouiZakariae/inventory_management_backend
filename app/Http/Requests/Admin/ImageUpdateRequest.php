@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReviewUpdateRequest extends FormRequest
+class ImageUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,14 +16,15 @@ class ReviewUpdateRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'email' => ['string', 'min:1', 'max:255'],
-            'body' => ['string', 'min:1'],
-            'product_id' => ['exists:products,id'],
-            'approved' => ['boolean']
+            'alt_text' => ['string', 'min:1', 'max:255'],
+            'image' => ['image'],
+            'product_id' => ['exists:products,id']
         ];
     }
 }
