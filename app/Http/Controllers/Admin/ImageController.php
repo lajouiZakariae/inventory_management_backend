@@ -29,9 +29,9 @@ class ImageController extends Controller
         $data = $request->validated();
 
         /** @var UploadedFile */
-        $uploadedImage  = $request->validated('image');
+        $uploaded_image  = $request->validated('image');
 
-        if ($uploadedImage === null || $uploadedImage->getError()) {
+        if ($uploaded_image === null || $uploaded_image->getError()) {
             return $data;
         }
 
@@ -40,7 +40,7 @@ class ImageController extends Controller
             Storage::disk('public')->delete($image->path);
         }
 
-        $data['path'] = $uploadedImage->store('products', 'public');
+        $data['path'] = $uploaded_image->store('products', 'public');
 
         return $data;
     }

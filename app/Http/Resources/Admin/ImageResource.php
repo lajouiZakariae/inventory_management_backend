@@ -16,7 +16,6 @@ class ImageResource extends JsonResource
             'id' => $this->id,
             'altText' => $this->alt_text,
             'url' => $this->imageUrl(),
-            'type' => $this->type,
             'productId' => $this->product_id,
         ];
     }

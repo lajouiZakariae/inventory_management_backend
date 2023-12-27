@@ -7,7 +7,6 @@ use App\Models\Review;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
-use JMac\Testing\Traits\AdditionalAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -26,7 +25,7 @@ final class ReviewControllerTest extends TestCase
         $response = $this->get(route('reviews.index'));
 
         $response->assertOk();
-        $response->assertJsonStructure(['*' => ['id', 'email', 'body', 'approved', 'product_id']]);
+        $response->assertJsonStructure(['*' => ['id', 'email', 'body', 'approved', 'productId']]);
         $response->assertJson(function (AssertableJson $json) {
             $json->has(3);
         });
@@ -68,7 +67,7 @@ final class ReviewControllerTest extends TestCase
         $response = $this->get(route('reviews.show', $review));
 
         $response->assertOk();
-        $response->assertJsonStructure(['id', 'email', 'body', 'approved', 'product_id']);
+        $response->assertJsonStructure(['id', 'email', 'body', 'approved', 'productId']);
 
         $response->assertJson(function (AssertableJson $json) use ($review) {
             $json->where('email', $review->email)->etc();

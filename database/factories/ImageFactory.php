@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Media;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends Factory<\App\Models\Media>
  */
-final class MediaFactory extends Factory
+final class ImageFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Media::class;
+    protected $model = Image::class;
 
     /**
      * Define the model's default state.
@@ -29,7 +28,7 @@ final class MediaFactory extends Factory
     {
         return [
             'alt_text' => fake()->word,
-            'path' => fake()->image(storage_path("app/public/products"), fullPath: false),
+            'path' => 'products/' . fake()->image(storage_path("app/public/products"), fullPath: false),
             'product_id' => \App\Models\Product::factory(),
         ];
     }
