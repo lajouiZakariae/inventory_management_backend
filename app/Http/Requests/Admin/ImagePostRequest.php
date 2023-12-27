@@ -4,14 +4,14 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MediaPostRequest extends FormRequest
+class ImagePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,7 @@ class MediaPostRequest extends FormRequest
     {
         return [
             'alt_text' => ['required', 'string', 'min:1', 'max:255'],
-            'path' => ['required', 'string', 'min:1', 'max:255'],
-            'type' => ['required', 'string', 'in:image,video'],
+            'image' => ['required', 'image'],
             'product_id' => ['required', 'exists:products,id']
         ];
     }

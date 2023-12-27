@@ -55,9 +55,9 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function media(): HasMany
+    public function images(): HasMany
     {
-        return $this->hasMany(Media::class);
+        return $this->hasMany(Image::class);
     }
 
     public function publish()

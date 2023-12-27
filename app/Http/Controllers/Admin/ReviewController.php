@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ReviewPostRequest;
-use App\Http\Requests\Admin\ReviewStoreRequest;
-use App\Http\Requests\Admin\ReviewUpdateRequest;
-use App\Http\Resources\Admin\ReviewCollection;
 use App\Http\Resources\Admin\ReviewResource;
 use App\Models\Product;
 use App\Models\Review;
@@ -55,6 +52,6 @@ class ReviewController extends Controller
     #[Get('/products/{product}/reviews')]
     public function productReviews(Product $product): Response
     {
-        return response($product->reviews);
+        return response(ReviewResource::collection($product->reviews));
     }
 }
