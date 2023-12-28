@@ -35,20 +35,20 @@ class PaymentMethodController extends Controller
 
         $paymentMethod = PaymentMethod::create($data);
 
-        return response()->make($paymentMethod, Response::HTTP_CREATED);
+        return response()->make('', Response::HTTP_CREATED);
     }
 
     public function update(PaymentMethodUpdateRequest $request, PaymentMethod $paymentMethod): Response
     {
         $paymentMethod->update($request->validated());
 
-        return response()->make(status: Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 
     public function destroy(PaymentMethod $paymentMethod): Response
     {
         $paymentMethod->delete();
 
-        return response()->make(status: Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 }

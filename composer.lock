@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69dc05389d60fe28162d272e0bae0bc9",
+    "content-hash": "2aedd101e232494a1c8d6676e60dd9d0",
     "packages": [
         {
             "name": "brick/math",
@@ -9063,6 +9063,47 @@
                 }
             ],
             "time": "2023-11-20T00:12:19+00:00"
+        },
+        {
+            "name": "zakalajo/api-generator",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lajouiZakariae/api-generator.git",
+                "reference": "12f1809eb1ef9f4dd41c7b8526d0c77a4b78017b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lajouiZakariae/api-generator/zipball/12f1809eb1ef9f4dd41c7b8526d0c77a4b78017b",
+                "reference": "12f1809eb1ef9f4dd41c7b8526d0c77a4b78017b",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Zakalajo\\ApiGenerator\\ApiGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zakalajo\\ApiGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Lajoui Zakariae",
+                    "email": "lajoui.zakariae.1@gmail.com"
+                }
+            ],
+            "description": "generates api from database tables",
+            "support": {
+                "issues": "https://github.com/lajouiZakariae/api-generator/issues",
+                "source": "https://github.com/lajouiZakariae/api-generator/tree/v0.0.3"
+            },
+            "time": "2023-12-26T16:39:10+00:00"
         }
     ],
     "aliases": [],

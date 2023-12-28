@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use App\Models\CouponCode;
 use App\Models\Order;
+use App\Models\PaymentMethod;
+use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
-use JMac\Testing\Traits\AdditionalAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -39,53 +41,62 @@ final class OrderControllerTest extends TestCase
             });
     }
 
-    // #[Test]
-    // public function store_saves(): void
-    // {
-    //     $full_name = $this->faker->word;
-    //     $email = $this->faker->safeEmail;
-    //     $phone_number = $this->faker->phoneNumber;
-    //     $status = $this->faker->randomElement(
-    //         /** enum_attributes **/
-    //     );
-    //     $city = $this->faker->city;
-    //     $payment_method_id = $this->faker->numberBetween(-10000, 10000);
-    //     $zip_code = $this->faker->word;
-    //     $coupon_code_id = $this->faker->numberBetween(-10000, 10000);
-    //     $address = $this->faker->word;
-    //     $delivery = $this->faker->boolean;
+    #[Test]
+    public function store_saves(): void
+    {
+        $full_name = $this->faker->word;
+        $email = $this->faker->safeEmail;
+        $phone_number = $this->faker->phoneNumber;
+        $status = $this->faker->randomElement(['pending', 'in transit', 'delivered', 'delivery attempt', 'cancelled', 'return to sender']);
+        $city = $this->faker->city;
+        $payment_method_id = PaymentMethod::factory()->create()->id;
+        $coupon_code_id = CouponCode::factory()->create()->id;
+        $zip_code = $this->faker->word;
+        $address = $this->faker->word;
+        $delivery = $this->faker->boolean;
 
-    //     $response = $this->post(route('orders.store'), [
-    //         'full_name' => $full_name,
-    //         'email' => $email,
-    //         'phone_number' => $phone_number,
-    //         'status' => $status,
-    //         'city' => $city,
-    //         'payment_method_id' => $payment_method_id,
-    //         'zip_code' => $zip_code,
-    //         'coupon_code_id' => $coupon_code_id,
-    //         'address' => $address,
-    //         'delivery' => $delivery,
-    //     ]);
+        $response = $this->post(route('orders.store'), [
+            'full_name' => $full_name,
+            'email' => $email,
+            'phone_number' => $phone_number,
+            'status' => $status,
+            'city' => $city,
+            'payment_method_id' => $payment_method_id,
+            'zip_code' => $zip_code,
+            'coupon_code_id' => $coupon_code_id,
+            'address' => $address,
+            'delivery' => $delivery,
+            'order_items' => [
+                [
+                    'product_id' => Product::factory()->create()->id,
+                    'quantity' => fake()->numberBetween(),
+                ],
+                [
+                    'product_id' => Product::factory()->create()->id,
+                    'quantity' => fake()->numberBetween(),
+                ],
+            ]
+        ]);
 
-    //     $orders = Order::query()
-    //         ->where('full_name', $full_name)
-    //         ->where('email', $email)
-    //         ->where('phone_number', $phone_number)
-    //         ->where('status', $status)
-    //         ->where('city', $city)
-    //         ->where('payment_method_id', $payment_method_id)
-    //         ->where('zip_code', $zip_code)
-    //         ->where('coupon_code_id', $coupon_code_id)
-    //         ->where('address', $address)
-    //         ->where('delivery', $delivery)
-    //         ->get();
-    //     $this->assertCount(1, $orders);
-    //     $order = $orders->first();
+        $orders = Order::query()
+            ->where('full_name', $full_name)
+            ->where('email', $email)
+            ->where('phone_number', $phone_number)
+            ->where('status', $status)
+            ->where('city', $city)
+            ->where('payment_method_id', $payment_method_id)
+            ->where('zip_code', $zip_code)
+            ->where('coupon_code_id', $coupon_code_id)
+            ->where('address', $address)
+            ->where('delivery', $delivery)
+            ->get();
 
-    //     $response->assertCreated();
-    //     $response->assertJsonStructure([]);
-    // }
+        $this->assertCount(1, $orders);
+
+        $order = $orders->first();
+
+        $response->assertCreated();
+    }
 
     #[Test]
     public function show_behaves_as_expected(): void
@@ -116,62 +127,59 @@ final class OrderControllerTest extends TestCase
         ]);
     }
 
-    // #[Test]
-    // public function update_behaves_as_expected(): void
-    // {
-    //     $order = Order::factory()->create();
-    //     $full_name = $this->faker->word;
-    //     $email = $this->faker->safeEmail;
-    //     $phone_number = $this->faker->phoneNumber;
-    //     $status = $this->faker->randomElement(
-    //         /** enum_attributes **/
-    //     );
-    //     $city = $this->faker->city;
-    //     $payment_method_id = $this->faker->numberBetween(-10000, 10000);
-    //     $zip_code = $this->faker->word;
-    //     $coupon_code_id = $this->faker->numberBetween(-10000, 10000);
-    //     $address = $this->faker->word;
-    //     $delivery = $this->faker->boolean;
+    #[Test]
+    public function update_behaves_as_expected(): void
+    {
+        $order = Order::factory()->create();
+        $full_name = $this->faker->word;
+        $email = $this->faker->safeEmail;
+        $phone_number = $this->faker->phoneNumber;
+        $status = $this->faker->randomElement(['pending', 'in transit', 'delivered', 'delivery attempt', 'cancelled', 'return to sender']);
+        $city = $this->faker->city;
+        $payment_method_id = PaymentMethod::factory()->create()->id;
+        $zip_code = $this->faker->word;
+        $coupon_code_id = CouponCode::factory()->create()->id;
+        $address = $this->faker->word;
+        $delivery = $this->faker->boolean;
 
-    //     $response = $this->put(route('orders.update', $order), [
-    //         'full_name' => $full_name,
-    //         'email' => $email,
-    //         'phone_number' => $phone_number,
-    //         'status' => $status,
-    //         'city' => $city,
-    //         'payment_method_id' => $payment_method_id,
-    //         'zip_code' => $zip_code,
-    //         'coupon_code_id' => $coupon_code_id,
-    //         'address' => $address,
-    //         'delivery' => $delivery,
-    //     ]);
+        $response = $this->put(route('orders.update', $order), [
+            'full_name' => $full_name,
+            'email' => $email,
+            'phone_number' => $phone_number,
+            'status' => $status,
+            'city' => $city,
+            'payment_method_id' => $payment_method_id,
+            'zip_code' => $zip_code,
+            'coupon_code_id' => $coupon_code_id,
+            'address' => $address,
+            'delivery' => $delivery,
+        ]);
 
-    //     $order->refresh();
+        $order->refresh();
 
-    //     $response->assertOk();
-    //     $response->assertJsonStructure([]);
+        $response->assertNoContent();
 
-    //     $this->assertEquals($full_name, $order->full_name);
-    //     $this->assertEquals($email, $order->email);
-    //     $this->assertEquals($phone_number, $order->phone_number);
-    //     $this->assertEquals($status, $order->status);
-    //     $this->assertEquals($city, $order->city);
-    //     $this->assertEquals($payment_method_id, $order->payment_method_id);
-    //     $this->assertEquals($zip_code, $order->zip_code);
-    //     $this->assertEquals($coupon_code_id, $order->coupon_code_id);
-    //     $this->assertEquals($address, $order->address);
-    //     $this->assertEquals($delivery, $order->delivery);
-    // }
+        $this->assertEquals($full_name, $order->full_name);
+        $this->assertEquals($email, $order->email);
+        $this->assertEquals($phone_number, $order->phone_number);
+        $this->assertEquals($status, $order->status);
+        $this->assertEquals($city, $order->city);
+        $this->assertEquals($payment_method_id, $order->payment_method_id);
+        $this->assertEquals($zip_code, $order->zip_code);
+        $this->assertEquals($coupon_code_id, $order->coupon_code_id);
+        $this->assertEquals($address, $order->address);
+        $this->assertEquals($delivery, $order->delivery);
+    }
 
-    // #[Test]
-    // public function destroy_deletes_and_responds_with(): void
-    // {
-    //     $order = Order::factory()->create();
+    #[Test]
+    public function destroy_deletes_and_responds_with(): void
+    {
+        $order = Order::factory()->create();
 
-    //     $response = $this->delete(route('orders.destroy', $order));
+        $response = $this->delete(route('orders.destroy', $order));
 
-    //     $response->assertNoContent();
+        $response->assertNoContent();
 
-    //     $this->assertModelMissing($order);
-    // }
+        $this->assertModelMissing($order);
+    }
 }

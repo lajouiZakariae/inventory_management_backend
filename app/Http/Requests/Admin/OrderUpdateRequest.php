@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OrderUpdateRequest extends FormRequest
 {
@@ -20,16 +21,18 @@ class OrderUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            // 'phone_number' => ['required', 'string'],
-            'status' => ['required', 'in:pending,in transit,delivered,delivery attempt,cancelled,return to sender'],
-            'city' => ['required', 'string'],
-            'payment_method_id' => ['required', 'integer'],
-            'zip_code' => ['required', 'string'],
-            'coupon_code_id' => ['required', 'integer'],
-            'address' => ['required', 'string'],
-            'delivery' => ['required'],
+            'full_name' => ['string', 'min:1', 'max:255'],
+            'email' => ['string', 'min:1', 'max:255'],
+            'phone_number' => ['string', 'min:1', 'max:255'],
+            'status' => ['string', Rule::in(
+                ['pending', 'in transit', 'delivered', 'delivery attempt', 'cancelled', 'return to sender']
+            )],
+            'city' => ['string', 'min:1', 'max:255'],
+            'payment_method_id' => ['exists:payment_methods,id'],
+            'zip_code' => ['string', 'min:1', 'max:255'],
+            'coupon_code_id' => ['exists:coupon_codes,id'],
+            'address' => ['string', 'min:1', 'max:255'],
+            'delivery' => ['boolean']
         ];
     }
 }
