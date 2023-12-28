@@ -754,7 +754,9 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        Order::insert($orders);
+        foreach ($orders as $order) {
+            Order::create($order);
+        }
 
 
 

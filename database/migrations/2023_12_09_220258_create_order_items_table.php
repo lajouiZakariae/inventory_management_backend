@@ -17,10 +17,18 @@ return new class extends Migration
             $table->increments('id');
 
             $table->unsignedInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
 
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+
+            $table
+                ->foreign('product_id')
+                ->references('id')
+                ->on('products');
 
             $table->unsignedInteger('quantity');
             $table->timestamps();
