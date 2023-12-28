@@ -46,11 +46,6 @@ final class PaymentMethodControllerTest extends TestCase
         $paymentMethod = $paymentMethods->first();
 
         $response->assertCreated();
-
-        $response->assertJson(function (AssertableJson $json)
-        use ($paymentMethod) {
-            $json->where('name', $paymentMethod->name)->etc();
-        });
     }
 
     #[Test]

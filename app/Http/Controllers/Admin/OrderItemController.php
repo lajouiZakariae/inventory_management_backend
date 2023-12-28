@@ -3,13 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\OrderItemStoreRequest;
-use App\Http\Requests\Admin\OrderItemUpdateRequest;
-use App\Http\Resources\Admin\OrderItemCollection;
-use App\Http\Resources\Admin\OrderItemResource;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 use Spatie\RouteAttributes\Attributes\Prefix;
@@ -18,19 +13,25 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 #[ApiResource('order-items')]
 class OrderItemController extends Controller
 {
-    public function index(Request $request, Order $order): Response
+    public function index(Order $order): Response
     {
         $orderItems = $order->orderItems;
 
         return response($orderItems);
     }
 
-    // public function store(OrderItemStoreRequest $request): Response
-    // {
-    //     $orderItem = OrderItem::create($request->validated());
+    public function store(Order $order): Response
+    {
+        $data = request()->validate([
+            'order_id' => ['required', 'exists:orders,id'],
+            'product_id' => ['required', 'exists:products,id'],
+            'quantity' => ['required', 'integer'],
+        ]);
 
-    //     return new OrderItemResource($orderItem);
-    // }
+        $orderItem = OrderItem::create($data);
+
+        return response();
+    }
 
     // public function show(Request $request, OrderItem $orderItem): Response
     // {
