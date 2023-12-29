@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\Platforms;
+use App\Enums\Platform;
 use App\Models\Setting;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,7 +28,7 @@ final class SettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'platform' => fake()->randomElement(array_column(Platforms::cases(), 'value')),
+            'platform' => fake()->randomElement(array_column(Platform::cases(), 'value')),
             'settings_value' => [
                 'theme' => fake()->randomElement(['green', 'blue', 'red']),
                 'font' => fake()->randomElement(['consolas', 'poppins']),
