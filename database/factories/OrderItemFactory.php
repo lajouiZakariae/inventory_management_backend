@@ -13,22 +13,22 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class OrderItemFactory extends Factory
 {
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = OrderItem::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [
             'order_id' => \App\Models\Order::factory(),
-            'poduct_id' => \App\Models\Product::factory(),
+            'product_id' => \App\Models\Product::factory(),
             'quantity' => fake()->randomNumber(),
         ];
     }

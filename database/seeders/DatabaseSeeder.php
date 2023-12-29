@@ -4,11 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Enums\Roles;
+use App\Enums\Role as EnumsRole;
 use App\Models\Category;
 use App\Models\CouponCode;
 use App\Models\Image;
-use App\Models\Media;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\PaymentMethod;
@@ -35,7 +34,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'first_name' => 'Test',
             'last_name' => 'User',
-            'role_id' => Roles::ADMIN,
+            'role_id' => EnumsRole::ADMIN,
             'email' => 'test@example.com',
         ]);
 

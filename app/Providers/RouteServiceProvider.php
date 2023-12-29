@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use App\Enums\Platforms;
-use App\Models\Media;
+use App\Enums\Platform;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -40,6 +39,6 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::whereNumber(["store", 'payment_method']);
-        Route::whereIn('setting', array_column(Platforms::cases(), 'value'));
+        Route::whereIn('setting', array_column(Platform::cases(), 'value'));
     }
 }
