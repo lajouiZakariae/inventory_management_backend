@@ -8,11 +8,13 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
+use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Patch;
 use Spatie\RouteAttributes\Attributes\Prefix;
+use Spatie\RouteAttributes\Attributes\ScopeBindings;
 
 #[Prefix('orders/{order}')]
-#[ApiResource('order-items')]
+#[ApiResource('order-items', except: 'show')]
 class OrderItemController extends Controller
 {
     public function index(Order $order): Response
@@ -36,7 +38,9 @@ class OrderItemController extends Controller
         return response('', Response::HTTP_CREATED);
     }
 
-    public function show($order, OrderItem $orderItem): Response
+    #[Get('order-items/{order_item}', name: 'order-items.show')]
+    #[ScopeBindings]
+    public function show(Order $order, OrderItem $orderItem): Response
     {
         return response(new OrderItemResource($orderItem));
     }
