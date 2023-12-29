@@ -60,7 +60,7 @@ class OrderItemController extends Controller
         return response()->noContent();
     }
 
-    #[Patch('order-items/{order}/increment-quantity')]
+    #[Patch('order-items/{order_item}/increment-quantity', 'order-items.increment-quantity')]
     public function incrementQuantity($order, OrderItem $orderItem): Response
     {
         $orderItem->quantity++;
@@ -70,7 +70,7 @@ class OrderItemController extends Controller
         return response()->noContent();
     }
 
-    #[Patch('order-items/{order}/decrement-quantity')]
+    #[Patch('order-items/{order_item}/decrement-quantity', 'order-items.decrement-quantity')]
     public function decrementQuantity($order, OrderItem $orderItem): Response
     {
         $orderItem->quantity--;

@@ -131,4 +131,42 @@ final class OrderItemControllerTest extends TestCase
 
         $this->assertModelMissing($orderItem);
     }
+
+    #[Test]
+    public function increment_quantity_is_working(): void
+    {
+        $orderItem = OrderItem::factory()->create();
+
+        $orderItemQuantity = $orderItem->quantity;
+
+        $response = $this->patch(route('order-items.increment-quantity', [
+            'order' => $orderItem->order->id,
+            'order_item' => $orderItem->id
+        ]));
+
+        $response->assertNoContent();
+
+        $orderItem->refresh();
+
+        $this->assertEquals($orderItem->quantity, $orderItemQuantity + 1);
+    }
+
+    #[Test]
+    public function decrement_quantity_is_working(): void
+    {
+        $orderItem = OrderItem::factory()->create();
+
+        $orderItemQuantity = $orderItem->quantity;
+
+        $response = $this->patch(route('order-items.decrement-quantity', [
+            'order' => $orderItem->order->id,
+            'order_item' => $orderItem->id
+        ]));
+
+        $response->assertNoContent();
+
+        $orderItem->refresh();
+
+        $this->assertEquals($orderItem->quantity, $orderItemQuantity - 1);
+    }
 }
