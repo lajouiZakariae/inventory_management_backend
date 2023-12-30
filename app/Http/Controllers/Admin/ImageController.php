@@ -20,19 +20,31 @@ use Spatie\RouteAttributes\Attributes\Get;
 #[ApiResource('images')]
 class ImageController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(): Response
     {
-        $image = Image::all();
+        $images = Image::all();
 
-        return response(ImageResource::collection($image));
+        return response(ImageResource::collection($images));
     }
 
+    /**
+     * Extract data from the request and handle image upload.
+     *
+     * @param  \App\Models\Image  $image
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
     private function extractData(Image $image, $request): array
     {
         $data = $request->validated();
 
         /** @var UploadedFile */
-        $uploaded_image  = $request->validated('image');
+        $uploaded_image = $data['image'] ?? null;
 
         if ($uploaded_image === null || $uploaded_image->getError()) {
             return $data;
@@ -48,6 +60,12 @@ class ImageController extends Controller
         return $data;
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\Admin\ImageStoreRequest  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(ImageStoreRequest $request): Response
     {
         $data = $this->extractData(new Image(), $request);
@@ -57,12 +75,25 @@ class ImageController extends Controller
         return response(new ImageResource($image), Response::HTTP_CREATED);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Image  $image
+     * @return \Illuminate\Http\Response
+     */
     public function show(Image $image): Response
     {
         return response(new ImageResource($image));
     }
 
-    public function update(ImageUpdateRequest $request, Image $image) //: Response
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\Admin\ImageUpdateRequest  $request
+     * @param  \App\Models\Image  $image
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ImageUpdateRequest $request, Image $image): Response
     {
         $data = $this->extractData($image, $request);
 
@@ -71,6 +102,12 @@ class ImageController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Image  $image
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Image $image): Response
     {
         Storage::disk('public')->delete($image->path);
@@ -80,6 +117,12 @@ class ImageController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Get images associated with a product.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
     #[Get('products/{product}/images')]
     public function productImages(Product $product): Response
     {

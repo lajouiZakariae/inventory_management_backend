@@ -13,10 +13,22 @@ use Spatie\RouteAttributes\Attributes\Patch;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\ScopeBindings;
 
+/**
+ * @group Order Items
+ * @authenticated
+ */
 #[Prefix('orders/{order}')]
 #[ApiResource('order-items', except: 'show')]
 class OrderItemController extends Controller
 {
+    /**
+     * Display a listing of order items for a specific order.
+     *
+     * @param  \App\Models\Order  $order
+     * @return \Illuminate\Http\Response
+     */
+    #[Get('order-items', name: 'order-items.index')]
+    #[ScopeBindings]
     public function index(Order $order): Response
     {
         $orderItems = $order->orderItems;
@@ -24,6 +36,12 @@ class OrderItemController extends Controller
         return response(OrderItemResource::collection($orderItems));
     }
 
+    /**
+     * Store a newly created order item in storage for a specific order.
+     *
+     * @param  \App\Models\Order  $order
+     * @return \Illuminate\Http\Response
+     */
     public function store(Order $order): Response
     {
         $data = request()->validate([
@@ -38,6 +56,13 @@ class OrderItemController extends Controller
         return response('', Response::HTTP_CREATED);
     }
 
+    /**
+     * Display the specified order item.
+     *
+     * @param  \App\Models\Order  $order
+     * @param  \App\Models\OrderItem  $orderItem
+     * @return \Illuminate\Http\Response
+     */
     #[Get('order-items/{order_item}', name: 'order-items.show')]
     #[ScopeBindings]
     public function show(Order $order, OrderItem $orderItem): Response
@@ -45,6 +70,13 @@ class OrderItemController extends Controller
         return response(new OrderItemResource($orderItem));
     }
 
+    /**
+     * Update the specified order item in storage for a specific order.
+     *
+     * @param  mixed  $order
+     * @param  \App\Models\OrderItem  $orderItem
+     * @return \Illuminate\Http\Response
+     */
     public function update($order, OrderItem $orderItem): Response
     {
         $data = request()->validate([
@@ -57,6 +89,13 @@ class OrderItemController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Remove the specified order item from storage for a specific order.
+     *
+     * @param  mixed  $order
+     * @param  \App\Models\OrderItem  $orderItem
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($order, OrderItem $orderItem): Response
     {
         $orderItem->delete();
@@ -64,6 +103,13 @@ class OrderItemController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Increment the quantity of the specified order item for a specific order.
+     *
+     * @param  mixed  $order
+     * @param  \App\Models\OrderItem  $orderItem
+     * @return \Illuminate\Http\Response
+     */
     #[Patch('order-items/{order_item}/increment-quantity', 'order-items.increment-quantity')]
     public function incrementQuantity($order, OrderItem $orderItem): Response
     {
@@ -74,6 +120,13 @@ class OrderItemController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Decrement the quantity of the specified order item for a specific order.
+     *
+     * @param  mixed  $order
+     * @param  \App\Models\OrderItem  $orderItem
+     * @return \Illuminate\Http\Response
+     */
     #[Patch('order-items/{order_item}/decrement-quantity', 'order-items.decrement-quantity')]
     public function decrementQuantity($order, OrderItem $orderItem): Response
     {

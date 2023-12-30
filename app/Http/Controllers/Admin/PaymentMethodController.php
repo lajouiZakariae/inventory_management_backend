@@ -8,9 +8,17 @@ use App\Models\PaymentMethod;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 
+/**
+ * @group Payment Methods
+ */
 #[ApiResource('payment-methods')]
 class PaymentMethodController extends Controller
 {
+    /**
+     * Display a listing of payment methods.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(): Response
     {
         $paymentMethods = PaymentMethod::query();
@@ -22,11 +30,22 @@ class PaymentMethodController extends Controller
         return response()->make(PaymentMethodResource::collection($paymentMethods->get()));
     }
 
+    /**
+     * Display the specified payment method.
+     *
+     * @param  \App\Models\PaymentMethod  $paymentMethod
+     * @return \Illuminate\Http\Response
+     */
     public function show(PaymentMethod $paymentMethod): Response
     {
         return response()->make(new PaymentMethodResource($paymentMethod));
     }
 
+    /**
+     * Store a newly created payment method in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function store(): Response
     {
         $data = request()->validate([
@@ -39,6 +58,12 @@ class PaymentMethodController extends Controller
         return response()->make('', Response::HTTP_CREATED);
     }
 
+    /**
+     * Update the specified payment method in storage.
+     *
+     * @param  \App\Models\PaymentMethod  $paymentMethod
+     * @return \Illuminate\Http\Response
+     */
     public function update(PaymentMethod $paymentMethod): Response
     {
         $data = request()->validate([
@@ -51,6 +76,12 @@ class PaymentMethodController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Remove the specified payment method from storage.
+     *
+     * @param  \App\Models\PaymentMethod  $paymentMethod
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(PaymentMethod $paymentMethod): Response
     {
         $paymentMethod->delete();

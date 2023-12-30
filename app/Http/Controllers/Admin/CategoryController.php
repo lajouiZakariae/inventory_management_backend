@@ -12,7 +12,11 @@ use Spatie\RouteAttributes\Attributes\Get;
  */
 class CategoryController extends Controller
 {
-
+    /**
+     * Display a listing of the categories.
+     *
+     * @return \Illuminate\Http\Response
+     */
     #[Get('/categories')]
     public function index(): Response
     {
