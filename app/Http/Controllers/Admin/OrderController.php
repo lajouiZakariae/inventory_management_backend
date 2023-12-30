@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 
+/**
+ * @group Orders
+ */
 #[ApiResource('orders')]
 class OrderController extends Controller
 {

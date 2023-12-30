@@ -7,6 +7,9 @@ use App\Models\Category;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\Get;
 
+/**
+ * @group Categories
+ */
 class CategoryController extends Controller
 {
 

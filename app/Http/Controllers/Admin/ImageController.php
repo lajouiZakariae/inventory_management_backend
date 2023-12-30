@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 use Spatie\RouteAttributes\Attributes\Get;
 
+/**
+ * @group Images
+ */
 #[ApiResource('images')]
 class ImageController extends Controller
 {

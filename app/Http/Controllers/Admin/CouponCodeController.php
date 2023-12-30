@@ -8,6 +8,9 @@ use App\Models\CouponCode;
 use Illuminate\Http\Response;
 use Spatie\RouteAttributes\Attributes\ApiResource;
 
+/**
+ * @group Coupon Codes
+ */
 #[ApiResource('coupon-codes')]
 class CouponCodeController extends Controller
 {
