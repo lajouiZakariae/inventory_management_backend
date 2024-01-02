@@ -111,12 +111,13 @@ class OrderItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     #[Patch('order-items/{order_item}/increment-quantity', 'order-items.increment-quantity')]
-    public function incrementQuantity($orderId,  $orderItemId): Response
+    public function incrementQuantity($orderId, OrderItem $orderItem): Response
     {
-        OrderItem::query()
-            ->where('id', $orderItemId)
-            ->where('order_id', $orderId)
-            ->increment('quantity');
+        if ($orderItem->quantity === 18_446_744_073_709_551_615) {
+            return response(['error' => 'maximum value reached'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $orderItem->query()->increment('quantity');
 
         return response()->noContent();
     }
@@ -131,9 +132,11 @@ class OrderItemController extends Controller
     #[Patch('order-items/{order_item}/decrement-quantity', 'order-items.decrement-quantity')]
     public function decrementQuantity($orderId, OrderItem $orderItem): Response
     {
-        if ($orderItem->quantity !== 0) {
-            $orderItem->query()->decrement('quantity');
+        if ($orderItem->quantity === 0) {
+            return response(['error' => 'minimum value reached'], Response::HTTP_BAD_REQUEST);
         }
+
+        $orderItem->query()->decrement('quantity');
 
         return response()->noContent();
     }

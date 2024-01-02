@@ -42,7 +42,7 @@ final class PurchaseItemControllerTest extends TestCase
             })
             ->assertJsonStructure(['*' => ['id', 'purchaseId', 'productId', 'quantity']]);
     }
-    /*
+
     #[Test]
     public function store_saves(): void
     {
@@ -66,7 +66,6 @@ final class PurchaseItemControllerTest extends TestCase
 
         $response->assertCreated();
     }
-
 
     #[Test]
     public function show_behaves_as_expected(): void
@@ -122,7 +121,7 @@ final class PurchaseItemControllerTest extends TestCase
 
         $response = $this->delete(route('purchase-items.destroy', [
             'purchase' => $purchaseItem->purchase->id,
-            'purchase_item' => $purchaseItem->id
+            'purchase_item' => $purchaseItem->id,
         ]));
 
         $response->assertNoContent();
@@ -166,5 +165,5 @@ final class PurchaseItemControllerTest extends TestCase
         $purchaseItem->refresh();
 
         $this->assertEquals($purchaseItem->quantity, $purchaseItemQuantity - 1);
-    } */
+    }
 }
