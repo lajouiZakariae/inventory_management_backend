@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard/{path?}', function () {
     return view('app');
 })->where('path', '.*');
+
+// Route::post('/login', function () {
+//     if (Auth::attempt(['email' => request()->email, 'password' => request()->password])) {
+//         session()->regenerate();
+//     }
+// });
