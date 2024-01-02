@@ -14,14 +14,14 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'cost' => $this->cost,
-            'price' => $this->price,
-            'stockQuantity' => $this->stock_quantity,
-            'published' => $this->published,
-            'categoryId' => $this->category_id,
-            'storeId' => $this->store_id,
+            'title' => $this->whenHas('title'),
+            'description' => $this->whenHas('description'),
+            'cost' => $this->whenHas('cost'),
+            'price' => $this->whenHas('price'),
+            'stockQuantity' => $this->whenHas('stock_quantity'),
+            'published' => $this->whenHas('published'),
+            'categoryId' => $this->whenHas('category_id'),
+            'storeId' => $this->whenHas('store_id'),
             'url' => route('products.show', ['product' => $this->id]),
         ];
     }
