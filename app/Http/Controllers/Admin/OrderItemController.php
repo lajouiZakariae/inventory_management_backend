@@ -111,9 +111,12 @@ class OrderItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     #[Patch('order-items/{order_item}/increment-quantity', 'order-items.increment-quantity')]
-    public function incrementQuantity($order,  $orderItemId): Response
+    public function incrementQuantity($orderId,  $orderItemId): Response
     {
-        OrderItem::query()->where('id', $orderItemId)->increment('quantity');
+        OrderItem::query()
+            ->where('id', $orderItemId)
+            ->where('order_id', $orderId)
+            ->increment('quantity');
 
         return response()->noContent();
     }
@@ -126,9 +129,12 @@ class OrderItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     #[Patch('order-items/{order_item}/decrement-quantity', 'order-items.decrement-quantity')]
-    public function decrementQuantity($order, $orderItemId): Response
+    public function decrementQuantity($orderId, $orderItemId): Response
     {
-        OrderItem::query()->where('id', $orderItemId)->decrement('quantity');
+        OrderItem::query()
+            ->where('id', $orderItemId)
+            ->where('order_id', $orderId)
+            ->decrement('quantity');
 
         return response()->noContent();
     }
