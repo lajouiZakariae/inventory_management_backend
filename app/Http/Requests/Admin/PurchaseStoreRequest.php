@@ -20,11 +20,11 @@ class PurchaseStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'supplierId' => ['required', 'exists:suppliers,id'],
             'paid' => ['required', 'boolean'],
-            'deliveryDate' => ['required', 'date'],
-            'paymentMethodId' => ['required', 'exists:payment_methods,id'],
-            'storeId' => ['required', 'exists:stores,id'],
+            'delivery_date' => ['required', 'date'],
+            'supplier_id' => ['required', 'exists:suppliers,id'],
+            'payment_method_id' => ['required', 'exists:payment_methods,id'],
+            'store_id' => ['required', 'exists:stores,id'],
         ];
     }
 }

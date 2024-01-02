@@ -6,6 +6,8 @@ use App\Models\CouponCode;
 use App\Models\Purchase;
 use App\Models\PaymentMethod;
 use App\Models\Product;
+use App\Models\Store;
+use App\Models\Supplier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -22,73 +24,50 @@ final class PurchaseControllerTest extends TestCase
     #[Test]
     public function index_behaves_as_expected(): void
     {
-        $purchases = Purchase::factory()->count(3)->create();
+        Purchase::factory()->count(3)->create();
 
         $response = $this->get(route('purchases.index'));
 
         $response
             ->assertOk()
-            ->assertJsonStructure(['*' => [
-                'id',
-                'supplier' => ['id', 'name'],
-                'deliveryDate',
-                'paymentMethod' => ['id', 'name'],
-                'paid',
-                'purchaseItemsCount',
-            ]])
+            ->assertJsonStructure([
+                '*' => [
+                    'id',
+                    'supplier' => ['id', 'name'],
+                    'deliveryDate',
+                    'paymentMethod' => ['id', 'name'],
+                    'paid',
+                    'purchaseItemsCount',
+                ]
+            ])
             ->assertJson(function (AssertableJson $json) {
                 $json->has(3);
             });
     }
-    /* 
+
     #[Test]
     public function store_saves(): void
     {
-        $full_name = $this->faker->word;
-        $email = $this->faker->safeEmail;
-        $phone_number = $this->faker->phoneNumber;
-        $status = $this->faker->randomElement(['pending', 'in transit', 'delivered', 'delivery attempt', 'cancelled', 'return to sender']);
-        $city = $this->faker->city;
+        $paid = fake()->boolean;
+        $delivery_date = fake()->date();
+        $supplier_id = Supplier::factory()->create()->id;
+        $store_id = Store::factory()->create()->id;
         $payment_method_id = PaymentMethod::factory()->create()->id;
-        $coupon_code_id = CouponCode::factory()->create()->id;
-        $zip_code = $this->faker->word;
-        $address = $this->faker->word;
-        $delivery = $this->faker->boolean;
 
         $response = $this->post(route('purchases.store'), [
-            'full_name' => $full_name,
-            'email' => $email,
-            'phone_number' => $phone_number,
-            'status' => $status,
-            'city' => $city,
+            'delivery_date' => $delivery_date,
+            'paid' => $paid,
+            'supplier_id' => $supplier_id,
+            'store_id' => $store_id,
             'payment_method_id' => $payment_method_id,
-            'zip_code' => $zip_code,
-            'coupon_code_id' => $coupon_code_id,
-            'address' => $address,
-            'delivery' => $delivery,
-            'purchase_items' => [
-                [
-                    'product_id' => Product::factory()->create()->id,
-                    'quantity' => fake()->numberBetween(),
-                ],
-                [
-                    'product_id' => Product::factory()->create()->id,
-                    'quantity' => fake()->numberBetween(),
-                ],
-            ]
         ]);
 
         $purchases = Purchase::query()
-            ->where('full_name', $full_name)
-            ->where('email', $email)
-            ->where('phone_number', $phone_number)
-            ->where('status', $status)
-            ->where('city', $city)
+            ->where('delivery_date', $delivery_date)
+            ->where('paid', $paid)
+            ->where('supplier_id', $supplier_id)
+            ->where('store_id', $store_id)
             ->where('payment_method_id', $payment_method_id)
-            ->where('zip_code', $zip_code)
-            ->where('coupon_code_id', $coupon_code_id)
-            ->where('address', $address)
-            ->where('delivery', $delivery)
             ->get();
 
         $this->assertCount(1, $purchases);
@@ -97,69 +76,54 @@ final class PurchaseControllerTest extends TestCase
 
         $response->assertCreated();
     }
-*/
-    // #[Test]
-    // public function show_behaves_as_expected(): void
-    // {
-    //     $purchase = Purchase::factory()->create();
 
-    //     $response = $this->get(route('purchases.show', $purchase));
+    #[Test]
+    public function show_behaves_as_expected(): void
+    {
+        $purchase = Purchase::factory()->create();
 
-    //     $response->assertOk();
-    //     $response->assertJsonStructure([
-    //     'id',
-    //     'paid',
-    //     'deliveryDate',
-    //     'supplier' => ['id', 'name'],
-    //     'paymentMethod' => ['id', 'name'],
-    //     'store' => ['id', 'store'],
-    //     'purchaseItemsCount',
-    // ]);
-    // }
+        $response = $this->get(route('purchases.show', $purchase));
 
-    /*
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'id',
+            'paid',
+            'deliveryDate',
+            'supplier' => ['id', 'name', 'url'],
+            'paymentMethod' => ['id', 'name', 'url'],
+            'store' => ['id', 'name'],
+        ]);
+    }
+
+
     #[Test]
     public function update_behaves_as_expected(): void
     {
         $purchase = Purchase::factory()->create();
-        $full_name = $this->faker->word;
-        $email = $this->faker->safeEmail;
-        $phone_number = $this->faker->phoneNumber;
-        $status = $this->faker->randomElement(['pending', 'in transit', 'delivered', 'delivery attempt', 'cancelled', 'return to sender']);
-        $city = $this->faker->city;
+
+        $paid = fake()->boolean;
+        $delivery_date = fake()->date();
+        $supplier_id = Supplier::factory()->create()->id;
+        $store_id = Store::factory()->create()->id;
         $payment_method_id = PaymentMethod::factory()->create()->id;
-        $zip_code = $this->faker->word;
-        $coupon_code_id = CouponCode::factory()->create()->id;
-        $address = $this->faker->word;
-        $delivery = $this->faker->boolean;
 
         $response = $this->put(route('purchases.update', $purchase), [
-            'full_name' => $full_name,
-            'email' => $email,
-            'phone_number' => $phone_number,
-            'status' => $status,
-            'city' => $city,
+            'delivery_date' => $delivery_date,
+            'paid' => $paid,
+            'supplier_id' => $supplier_id,
+            'store_id' => $store_id,
             'payment_method_id' => $payment_method_id,
-            'zip_code' => $zip_code,
-            'coupon_code_id' => $coupon_code_id,
-            'address' => $address,
-            'delivery' => $delivery,
         ]);
 
         $purchase->refresh();
 
         $response->assertNoContent();
 
-        $this->assertEquals($full_name, $purchase->full_name);
-        $this->assertEquals($email, $purchase->email);
-        $this->assertEquals($phone_number, $purchase->phone_number);
-        $this->assertEquals($status, $purchase->status);
-        $this->assertEquals($city, $purchase->city);
+        $this->assertEquals($paid, $purchase->paid);
+        $this->assertEquals($delivery_date, $purchase->delivery_date->toDateString());
+        $this->assertEquals($supplier_id, $purchase->supplier_id);
+        $this->assertEquals($store_id, $purchase->store_id);
         $this->assertEquals($payment_method_id, $purchase->payment_method_id);
-        $this->assertEquals($zip_code, $purchase->zip_code);
-        $this->assertEquals($coupon_code_id, $purchase->coupon_code_id);
-        $this->assertEquals($address, $purchase->address);
-        $this->assertEquals($delivery, $purchase->delivery);
     }
 
     #[Test]
@@ -172,5 +136,5 @@ final class PurchaseControllerTest extends TestCase
         $response->assertNoContent();
 
         $this->assertModelMissing($purchase);
-    } */
+    }
 }

@@ -37,14 +37,14 @@ class PurchaseController extends Controller
      * @param  \App\Http\Requests\Admin\PurchaseStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(PurchaseStoreRequest $request): Response
-    // {
-    //     $data = $request->validated();
+    public function store(PurchaseStoreRequest $request): Response
+    {
+        $data = $request->validated();
 
-    //     $purchase = Purchase::create($data);
+        $purchase = Purchase::create($data);
 
-    //     return response($purchase, Response::HTTP_CREATED);
-    // }
+        return response($purchase, Response::HTTP_CREATED);
+    }
 
     /**
      * Display the specified purchase.
@@ -59,32 +59,32 @@ class PurchaseController extends Controller
         return response(new PurchaseResource($purchaseData));
     }
 
-    // /**
-    //  * Update the specified purchase in storage.
-    //  *
-    //  * @param  \App\Http\Requests\Admin\PurchaseUpdateRequest  $request
-    //  * @param  \App\Models\Purchase  $purchase
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(PurchaseUpdateRequest $request, Purchase $purchase): Response
-    // {
-    //     $data = $request->validated();
+    /**
+     * Update the specified purchase in storage.
+     *
+     * @param  \App\Http\Requests\Admin\PurchaseUpdateRequest  $request
+     * @param  \App\Models\Purchase  $purchase
+     * @return \Illuminate\Http\Response
+     */
+    public function update(PurchaseUpdateRequest $request, Purchase $purchase): Response
+    {
+        $data = $request->validated();
 
-    //     $purchase->update($data);
+        $purchase->update($data);
 
-    //     return response()->noContent();
-    // }
+        return response()->noContent();
+    }
 
-    // /**
-    //  * Remove the specified purchase from storage.
-    //  *
-    //  * @param  \App\Models\Purchase  $purchase
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy(Purchase $purchase): Response
-    // {
-    //     $purchase->delete();
+    /**
+     * Remove the specified purchase from storage.
+     *
+     * @param  \App\Models\Purchase  $purchase
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Purchase $purchase): Response
+    {
+        $purchase->delete();
 
-    //     return response()->noContent();
-    // }
+        return response()->noContent();
+    }
 }

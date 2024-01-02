@@ -16,12 +16,12 @@ class PurchaseResource extends JsonResource
             'id' => $this->id,
             'paid' => $this->paid,
             'deliveryDate' => $this->delivery_date,
-            'supplier' => new SupplierResource($this->whenLoaded('supplier', $this->supplier)),
+            'supplier' => new SupplierResource($this->whenLoaded('supplier')),
             'paymentMethod' =>  new PaymentMethodResource(
-                $this->whenLoaded('paymentMethod', $this->paymentMethod)
+                $this->whenLoaded('paymentMethod')
             ),
             'store' => new StoreResource(
-                $this->whenLoaded('store', $this->store)
+                $this->whenLoaded('store')
             ),
             'purchaseItemsCount' => $this->whenCounted('purchaseItems')
         ];

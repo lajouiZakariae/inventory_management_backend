@@ -94,28 +94,18 @@ class DatabaseSeeder extends Seeder
 
         $randomStores = [
             [
-                'latitude' => 31.7243,
-                'longitude' => -7.0863,
                 'name' => 'Casablanca',
             ],
             [
-                'latitude' => 35.7461,
-                'longitude' => -5.8147,
                 'name' => 'Tangier',
             ],
             [
-                'latitude' => 31.6255,
-                'longitude' => -8.0083,
                 'name' => 'Marrakech',
             ],
             [
-                'latitude' => 30.4202,
-                'longitude' => -9.5605,
                 'name' => 'Agadir',
             ],
             [
-                'latitude' => 34.0341,
-                'longitude' => -4.9744,
                 'name' => 'Fez',
             ],
         ];
@@ -352,8 +342,9 @@ class DatabaseSeeder extends Seeder
 
         ];
 
-        // Laravel insert statement
-        Product::insert($productsData);
+        foreach ($productsData as $product) {
+            Product::create($product);
+        }
 
 
         $reviews = [
@@ -659,7 +650,9 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        Review::insert($reviews);
+        foreach ($reviews as $review) {
+            Review::create($review);
+        }
 
         $coupon_codes = [
             ["code" => "LOREM03", "amount" => 25],

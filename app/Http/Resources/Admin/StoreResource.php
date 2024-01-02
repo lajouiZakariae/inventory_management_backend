@@ -16,8 +16,6 @@ class StoreResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'address' => $this->whenHas('address'),
-            'latitude' => $this->whenHas('latitude'),
-            'longitude' => $this->whenHas('longitude'),
             'url' => route("stores.show", ["store" => $this->id])
         ];
     }
