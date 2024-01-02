@@ -757,8 +757,6 @@ class DatabaseSeeder extends Seeder
             Order::create($order);
         }
 
-
-
         $order_items = [
             ["order_id" => 1, "product_id" => 1, "quantity" => 5],
             ["order_id" => 2, "product_id" => 2, "quantity" => 3],
@@ -768,12 +766,12 @@ class DatabaseSeeder extends Seeder
 
         OrderItem::insert($order_items);
 
-        foreach (File::allFiles(storage_path('app/public/products')) as $value) {
-            Image::insert([
-                'alt_text' => fake()->word,
-                'path' => 'products/' . $value->getFilename(),
-                'product_id' => fake()->numberBetween(1, 20),
-            ]);
-        }
+        // foreach (File::allFiles(storage_path('app/public/products')) as $value) {
+        //     Image::insert([
+        //         'alt_text' => fake()->word,
+        //         'path' => 'products/' . $value->getFilename(),
+        //         'product_id' => fake()->numberBetween(1, 20),
+        //     ]);
+        // }
     }
 }

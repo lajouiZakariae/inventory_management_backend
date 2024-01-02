@@ -14,19 +14,16 @@ class PurchaseResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            /* 'email' => $this->email,
-            'status' => $this->status,
-            'delivery' => $this->delivery,
-            'createdAt' => $this->created_at,
-            'orderItemsCount' => $this->whenCounted('order_items'),
-            'fullName' => $this->whenHas('full_name'),
-            'phoneNumber' => $this->whenHas('phone_number'),
-            'city' => $this->whenHas('city'),
-            'zipCode' => $this->whenHas('zip_code'),
-            'address' => $this->whenHas('address'),
-            'orderItems' => $this->whenLoaded('orderItems'),
-            'paymentMethod' => $this->whenLoaded('paymentMethod', new PaymentMethodResource($this->paymentMethod)), */
-            'purchaseItemsUrl' => route('purchase-items.index', ['purchase' => $this->id])
+            'paid' => $this->paid,
+            'deliveryDate' => $this->delivery_date,
+            'supplier' => new SupplierResource($this->whenLoaded('supplier', $this->supplier)),
+            'paymentMethod' =>  new PaymentMethodResource(
+                $this->whenLoaded('paymentMethod', $this->paymentMethod)
+            ),
+            'store' => new StoreResource(
+                $this->whenLoaded('store', $this->store)
+            ),
+            'purchaseItemsCount' => $this->whenCounted('purchaseItems')
         ];
     }
 }

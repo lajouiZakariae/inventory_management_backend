@@ -23,7 +23,10 @@ class PurchaseController extends Controller
      */
     public function index(): Response
     {
-        $purchases = Purchase::query()->withCount('purchaseItems')->get(['id', 'email', 'status', 'delivery', 'created_at']);
+        $purchases = Purchase::query()
+            ->with(['supplier:id,name', 'paymentMethod:id,name'])
+            ->withCount('purchaseItems')
+            ->get();
 
         return response(PurchaseResource::collection($purchases));
     }
@@ -34,14 +37,14 @@ class PurchaseController extends Controller
      * @param  \App\Http\Requests\Admin\PurchaseStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PurchaseStoreRequest $request): Response
-    {
-        $data = $request->validated();
+    // public function store(PurchaseStoreRequest $request): Response
+    // {
+    //     $data = $request->validated();
 
-        $purchase = Purchase::create($data);
+    //     $purchase = Purchase::create($data);
 
-        return response($purchase, Response::HTTP_CREATED);
-    }
+    //     return response($purchase, Response::HTTP_CREATED);
+    // }
 
     /**
      * Display the specified purchase.
@@ -51,39 +54,37 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase): Response
     {
-        $purchaseData = $purchase->load([
-            'paymentMethod'
-        ]);
+        $purchaseData = $purchase->load(['supplier:id,name', 'store:id,name', 'paymentMethod:id,name']);
 
         return response(new PurchaseResource($purchaseData));
     }
 
-    /**
-     * Update the specified purchase in storage.
-     *
-     * @param  \App\Http\Requests\Admin\PurchaseUpdateRequest  $request
-     * @param  \App\Models\Purchase  $purchase
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PurchaseUpdateRequest $request, Purchase $purchase): Response
-    {
-        $data = $request->validated();
+    // /**
+    //  * Update the specified purchase in storage.
+    //  *
+    //  * @param  \App\Http\Requests\Admin\PurchaseUpdateRequest  $request
+    //  * @param  \App\Models\Purchase  $purchase
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(PurchaseUpdateRequest $request, Purchase $purchase): Response
+    // {
+    //     $data = $request->validated();
 
-        $purchase->update($data);
+    //     $purchase->update($data);
 
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 
-    /**
-     * Remove the specified purchase from storage.
-     *
-     * @param  \App\Models\Purchase  $purchase
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Purchase $purchase): Response
-    {
-        $purchase->delete();
+    // /**
+    //  * Remove the specified purchase from storage.
+    //  *
+    //  * @param  \App\Models\Purchase  $purchase
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy(Purchase $purchase): Response
+    // {
+    //     $purchase->delete();
 
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 }

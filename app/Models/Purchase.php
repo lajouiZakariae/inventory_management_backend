@@ -24,6 +24,8 @@ class Purchase extends Model
         'store_id',
     ];
 
+    protected $hidden = ['updated_at'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -48,8 +50,9 @@ class Purchase extends Model
     {
         return $this->belongsTo(Store::class);
     }
-    
-    public function purchaseItems() : HasMany {
+
+    public function purchaseItems(): HasMany
+    {
         return $this->hasMany(PurchaseItem::class);
     }
 }

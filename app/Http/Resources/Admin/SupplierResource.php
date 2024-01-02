@@ -15,9 +15,10 @@ class SupplierResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'phoneNumber' => $this->phone_number,
-            'address' => $this->address,
+            'email' => $this->whenHas('email'),
+            'phoneNumber' => $this->whenHas('phone_number'),
+            'address' => $this->whenHas('address'),
+            'url' => route('suppliers.show', ['supplier' => $this->id])
         ];
     }
 }

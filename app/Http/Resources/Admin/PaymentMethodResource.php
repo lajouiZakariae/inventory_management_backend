@@ -15,7 +15,7 @@ class PaymentMethodResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
+            'description' => $this->whenHas('description'),
             'url' => route("payment-methods.show", ["payment_method" => $this->id])
         ];
     }

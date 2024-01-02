@@ -19,7 +19,7 @@ final class PurchaseControllerTest extends TestCase
 {
     use  RefreshDatabase, WithFaker;
 
-/*     #[Test]
+    #[Test]
     public function index_behaves_as_expected(): void
     {
         $purchases = Purchase::factory()->count(3)->create();
@@ -30,17 +30,17 @@ final class PurchaseControllerTest extends TestCase
             ->assertOk()
             ->assertJsonStructure(['*' => [
                 'id',
-                'email',
-                'status',
+                'supplier' => ['id', 'name'],
+                'deliveryDate',
+                'paymentMethod' => ['id', 'name'],
+                'paid',
                 'purchaseItemsCount',
-                'delivery',
-                'createdAt',
             ]])
             ->assertJson(function (AssertableJson $json) {
                 $json->has(3);
             });
     }
-
+    /* 
     #[Test]
     public function store_saves(): void
     {
@@ -97,36 +97,27 @@ final class PurchaseControllerTest extends TestCase
 
         $response->assertCreated();
     }
+*/
+    // #[Test]
+    // public function show_behaves_as_expected(): void
+    // {
+    //     $purchase = Purchase::factory()->create();
 
-    #[Test]
-    public function show_behaves_as_expected(): void
-    {
-        $purchase = Purchase::factory()->create();
+    //     $response = $this->get(route('purchases.show', $purchase));
 
-        $response = $this->get(route('purchases.show', $purchase));
+    //     $response->assertOk();
+    //     $response->assertJsonStructure([
+    //     'id',
+    //     'paid',
+    //     'deliveryDate',
+    //     'supplier' => ['id', 'name'],
+    //     'paymentMethod' => ['id', 'name'],
+    //     'store' => ['id', 'store'],
+    //     'purchaseItemsCount',
+    // ]);
+    // }
 
-        $response->assertOk();
-        $response->assertJsonStructure([
-            "id",
-            "email",
-            "status",
-            "delivery",
-            "createdAt",
-            "fullName",
-            "phoneNumber",
-            "city",
-            "zipCode",
-            "address",
-            "paymentMethod" => [
-                "id",
-                "name",
-                "description",
-                "url"
-            ],
-            "purchaseItemsUrl"
-        ]);
-    }
-
+    /*
     #[Test]
     public function update_behaves_as_expected(): void
     {
