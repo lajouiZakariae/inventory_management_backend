@@ -24,8 +24,6 @@ final class OrderItemControllerTest extends TestCase
     {
         $order = Order::factory()->create();
 
-        $orderItems = collect();
-
         for ($i = 0; $i < 3; $i++) {
             $order->orderItems()->save(
                 new OrderItem([

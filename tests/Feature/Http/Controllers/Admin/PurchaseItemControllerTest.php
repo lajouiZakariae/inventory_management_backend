@@ -19,12 +19,10 @@ final class PurchaseItemControllerTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    /* #[Test]
+    #[Test]
     public function index_behaves_as_expected(): void
     {
         $purchase = Purchase::factory()->create();
-
-        $purchaseItems = collect();
 
         for ($i = 0; $i < 3; $i++) {
             $purchase->purchaseItems()->save(
@@ -44,7 +42,7 @@ final class PurchaseItemControllerTest extends TestCase
             })
             ->assertJsonStructure(['*' => ['id', 'purchaseId', 'productId', 'quantity']]);
     }
-
+    /*
     #[Test]
     public function store_saves(): void
     {

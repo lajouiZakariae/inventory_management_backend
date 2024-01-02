@@ -129,12 +129,11 @@ class OrderItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     #[Patch('order-items/{order_item}/decrement-quantity', 'order-items.decrement-quantity')]
-    public function decrementQuantity($orderId, $orderItemId): Response
+    public function decrementQuantity($orderId, OrderItem $orderItem): Response
     {
-        OrderItem::query()
-            ->where('id', $orderItemId)
-            ->where('order_id', $orderId)
-            ->decrement('quantity');
+        if ($orderItem->quantity !== 0) {
+            $orderItem->query()->decrement('quantity');
+        }
 
         return response()->noContent();
     }

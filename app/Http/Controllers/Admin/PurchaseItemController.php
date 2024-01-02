@@ -42,19 +42,19 @@ class PurchaseItemController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function store(Purchase $purchase): Response
-    {
-        $data = request()->validate([
-            'product_id' => ['required', 'exists:products,id'],
-            'quantity' => ['required', 'integer'],
-        ]);
+    // public function store(Purchase $purchase): Response
+    // {
+    //     $data = request()->validate([
+    //         'product_id' => ['required', 'exists:products,id'],
+    //         'quantity' => ['required', 'integer'],
+    //     ]);
 
-        $purchaseItem = new PurchaseItem($data);
+    //     $purchaseItem = new PurchaseItem($data);
 
-        $purchase->purchaseItems()->save($purchaseItem);
+    //     $purchase->purchaseItems()->save($purchaseItem);
 
-        return response('', Response::HTTP_CREATED);
-    }
+    //     return response('', Response::HTTP_CREATED);
+    // }
 
     /**
      * Display the specified purchase item.
@@ -63,12 +63,12 @@ class PurchaseItemController extends Controller
      * @param  \App\Models\PurchaseItem  $purchaseItem
      * @return \Illuminate\Http\Response
      */
-    #[Get('purchase-items/{purchase_item}', name: 'purchase-items.show')]
-    #[ScopeBindings]
-    public function show(Purchase $purchase, PurchaseItem $purchaseItem): Response
-    {
-        return response(new PurchaseItemResource($purchaseItem));
-    }
+    // #[Get('purchase-items/{purchase_item}', name: 'purchase-items.show')]
+    // #[ScopeBindings]
+    // public function show(Purchase $purchase, PurchaseItem $purchaseItem): Response
+    // {
+    //     return response(new PurchaseItemResource($purchaseItem));
+    // }
 
     /**
      * Update the specified purchase item in storage for a specific purchase.
@@ -77,17 +77,17 @@ class PurchaseItemController extends Controller
      * @param  \App\Models\PurchaseItem  $purchaseItem
      * @return \Illuminate\Http\Response
      */
-    public function update($purchase, PurchaseItem $purchaseItem): Response
-    {
-        $data = request()->validate([
-            'product_id' => ['required', 'exists:products,id'],
-            'quantity' => ['required', 'integer'],
-        ]);
+    // public function update($purchase, PurchaseItem $purchaseItem): Response
+    // {
+    //     $data = request()->validate([
+    //         'product_id' => ['required', 'exists:products,id'],
+    //         'quantity' => ['required', 'integer'],
+    //     ]);
 
-        $purchaseItem->update($data);
+    //     $purchaseItem->update($data);
 
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 
     /**
      * Remove the specified purchase item from storage for a specific purchase.
@@ -96,12 +96,12 @@ class PurchaseItemController extends Controller
      * @param  \App\Models\PurchaseItem  $purchaseItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy($purchase, PurchaseItem $purchaseItem): Response
-    {
-        $purchaseItem->delete();
+    // public function destroy($purchase, PurchaseItem $purchaseItem): Response
+    // {
+    //     $purchaseItem->delete();
 
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 
     /**
      * Increment the quantity of the specified purchase item for a specific purchase.
@@ -110,16 +110,16 @@ class PurchaseItemController extends Controller
      * @param  \App\Models\PurchaseItem  $purchaseItem
      * @return \Illuminate\Http\Response
      */
-    #[Patch('purchase-items/{purchase_item}/increment-quantity', 'purchase-items.increment-quantity')]
-    public function incrementQuantity($purchaseId,  $purchaseItemId): Response
-    {
-        PurchaseItem::query()
-            ->where('id', $purchaseItemId)
-            ->where('purchase_id', $purchaseId)
-            ->increment('quantity');
+    // #[Patch('purchase-items/{purchase_item}/increment-quantity', 'purchase-items.increment-quantity')]
+    // public function incrementQuantity($purchaseId,  $purchaseItemId): Response
+    // {
+    //     PurchaseItem::query()
+    //         ->where('id', $purchaseItemId)
+    //         ->where('purchase_id', $purchaseId)
+    //         ->increment('quantity');
 
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 
     /**
      * Decrement the quantity of the specified purchase item for a specific purchase.
@@ -128,14 +128,14 @@ class PurchaseItemController extends Controller
      * @param  \App\Models\PurchaseItem  $purchaseItem
      * @return \Illuminate\Http\Response
      */
-    #[Patch('purchase-items/{purchase_item}/decrement-quantity', 'purchase-items.decrement-quantity')]
-    public function decrementQuantity($purchaseId, $purchaseItemId): Response
-    {
-        PurchaseItem::query()
-            ->where('id', $purchaseItemId)
-            ->where('purchase_id', $purchaseId)
-            ->decrement('quantity');
+    // #[Patch('purchase-items/{purchase_item}/decrement-quantity', 'purchase-items.decrement-quantity')]
+    // public function decrementQuantity($purchaseId, $purchaseItemId): Response
+    // {
+    //     PurchaseItem::query()
+    //         ->where('id', $purchaseItemId)
+    //         ->where('purchase_id', $purchaseId)
+    //         ->decrement('quantity');
 
-        return response()->noContent();
-    } 
+    //     return response()->noContent();
+    // }
 }
