@@ -6,7 +6,6 @@ use App\Models\Store;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
-use JMac\Testing\Traits\AdditionalAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -27,7 +26,7 @@ final class StoreControllerTest extends TestCase
         $response
             ->assertOk()
             ->assertJsonStructure([
-                '*' => ['id', 'name', 'address', 'latitude', 'longitude', 'url']
+                '*' => ['id', 'name', 'address', 'url']
             ])
             ->assertJson(function (AssertableJson $json) {
                 $json->has(3);

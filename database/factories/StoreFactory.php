@@ -29,8 +29,6 @@ final class StoreFactory extends Factory
         return [
             'name' => fake()->name,
             'address' => fake()->address,
-            'latitude' => fake()->optional()->latitude,
-            'longitude' => fake()->optional()->longitude,
         ];
     }
 }

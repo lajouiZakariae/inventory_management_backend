@@ -18,8 +18,6 @@ class Store extends Model
     protected $fillable = [
         'name',
         'address',
-        'latitude',
-        'longitude',
     ];
 
     /**
@@ -27,10 +25,7 @@ class Store extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'latitude' => 'float',
-        'longitude' => 'float',
-    ];
+    protected $casts = [];
 
     function products(): HasMany
     {

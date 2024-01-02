@@ -94,28 +94,18 @@ class DatabaseSeeder extends Seeder
 
         $randomStores = [
             [
-                'latitude' => 31.7243,
-                'longitude' => -7.0863,
                 'name' => 'Casablanca',
             ],
             [
-                'latitude' => 35.7461,
-                'longitude' => -5.8147,
                 'name' => 'Tangier',
             ],
             [
-                'latitude' => 31.6255,
-                'longitude' => -8.0083,
                 'name' => 'Marrakech',
             ],
             [
-                'latitude' => 30.4202,
-                'longitude' => -9.5605,
                 'name' => 'Agadir',
             ],
             [
-                'latitude' => 34.0341,
-                'longitude' => -4.9744,
                 'name' => 'Fez',
             ],
         ];
@@ -352,8 +342,9 @@ class DatabaseSeeder extends Seeder
 
         ];
 
-        // Laravel insert statement
-        Product::insert($productsData);
+        foreach ($productsData as $product) {
+            Product::create($product);
+        }
 
 
         $reviews = [
@@ -659,7 +650,9 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        Review::insert($reviews);
+        foreach ($reviews as $review) {
+            Review::create($review);
+        }
 
         $coupon_codes = [
             ["code" => "LOREM03", "amount" => 25],
@@ -757,8 +750,6 @@ class DatabaseSeeder extends Seeder
             Order::create($order);
         }
 
-
-
         $order_items = [
             ["order_id" => 1, "product_id" => 1, "quantity" => 5],
             ["order_id" => 2, "product_id" => 2, "quantity" => 3],
@@ -768,12 +759,12 @@ class DatabaseSeeder extends Seeder
 
         OrderItem::insert($order_items);
 
-        foreach (File::allFiles(storage_path('app/public/products')) as $value) {
-            Image::insert([
-                'alt_text' => fake()->word,
-                'path' => 'products/' . $value->getFilename(),
-                'product_id' => fake()->numberBetween(1, 20),
-            ]);
-        }
+        // foreach (File::allFiles(storage_path('app/public/products')) as $value) {
+        //     Image::insert([
+        //         'alt_text' => fake()->word,
+        //         'path' => 'products/' . $value->getFilename(),
+        //         'product_id' => fake()->numberBetween(1, 20),
+        //     ]);
+        // }
     }
 }

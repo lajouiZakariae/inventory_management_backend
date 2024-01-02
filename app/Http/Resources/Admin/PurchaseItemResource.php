@@ -5,7 +5,7 @@ namespace App\Http\Resources\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SupplierResource extends JsonResource
+class PurchaseItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,9 @@ class SupplierResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->whenHas('email'),
-            'phoneNumber' => $this->whenHas('phone_number'),
-            'address' => $this->whenHas('address'),
-            'url' => route('suppliers.show', ['supplier' => $this->id])
+            'purchaseId' => $this->purchase_id,
+            'productId' => $this->product_id,
+            'quantity' => $this->quantity,
         ];
     }
 }
