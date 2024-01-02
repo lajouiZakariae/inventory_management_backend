@@ -14,6 +14,11 @@ class ProductUpdateRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge(['published' => $this->boolean('published')]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,11 +29,11 @@ class ProductUpdateRequest extends FormRequest
         return [
             'title' => ['string', 'min:1', 'max:255'],
             'description' => ['nullable', 'string', 'min:1', 'max:500'],
-            'cost' => ['required', 'numeric'],
-            'price' => ['required', 'numeric'],
-            'stock_quantity' => ['required', 'integer', 'min:0', 'max:4294967295'],
-            'published' => ['required', 'boolean'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'cost' => ['numeric'],
+            'price' => ['numeric'],
+            'stock_quantity' => ['integer', 'min:0', 'max:4294967295'],
+            'published' => ['boolean'],
+            'category_id' => ['exists:categories,id'],
             'store_id' => ['nullable', 'exists:stores,id']
         ];
     }

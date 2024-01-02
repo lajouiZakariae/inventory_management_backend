@@ -15,12 +15,13 @@ return new class extends Migration
 
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->string('email');
             $table->text('body');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
             $table->boolean('approved')->default(false);
-            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
         Schema::enableForeignKeyConstraints();

@@ -15,9 +15,10 @@ return new class extends Migration
 
         Schema::create('histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('operation', ["damage","order","sale"]);
+            $table->enum('operation', ["damage", "order", "sale"]);
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->timestamps();
         });
 

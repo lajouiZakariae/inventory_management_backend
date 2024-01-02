@@ -18,8 +18,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('alt_text')->default('picture of a product');
             $table->string('path');
+
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
         });
 
         Schema::enableForeignKeyConstraints();
