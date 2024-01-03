@@ -21,7 +21,6 @@ use App\Models\Store;
 use App\Models\Supplier;
 use Hash;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,7 +29,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+
+        Role::insert([
+            ["name" => "admin"],
+            ["name" => "creator"]
+        ]);
 
         \App\Models\User::factory()->create([
             'first_name' => 'Test',
@@ -38,11 +41,6 @@ class DatabaseSeeder extends Seeder
             'role_id' => EnumsRole::ADMIN,
             'email' => 'test@example.com',
             'password' => Hash::make('password')
-        ]);
-
-        Role::insert([
-            ["name" => "admin"],
-            ["name" => "creator"]
         ]);
 
         Setting::insert([

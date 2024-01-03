@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends Factory<\App\Models\User>
@@ -14,17 +15,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class UserFactory extends Factory
 {
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = User::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [
@@ -33,7 +34,7 @@ final class UserFactory extends Factory
             'role_id' => fake()->randomNumber(),
             'email' => fake()->safeEmail,
             'email_verified_at' => fake()->optional()->dateTime(),
-            'password' => bcrypt(fake()->password),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }
