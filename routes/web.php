@@ -8,17 +8,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/dashboard/{path?}', function () {
-    return view('app');
-})->where('path', '.*');
+Route::get('/dashboard', function () {
+    return view('index');
+});
 
-// Route::post('/login', function () {
-//     if (Auth::attempt(['email' => request()->email, 'password' => request()->password])) {
-//         session()->regenerate();
-//     }
-// });
+require __DIR__ . '/auth.php';

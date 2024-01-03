@@ -19,6 +19,7 @@ use App\Models\Role;
 use App\Models\Setting;
 use App\Models\Store;
 use App\Models\Supplier;
+use Hash;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'User',
             'role_id' => EnumsRole::ADMIN,
             'email' => 'test@example.com',
+            'password' => Hash::make('password')
         ]);
 
         Role::insert([
