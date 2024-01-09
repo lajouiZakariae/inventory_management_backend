@@ -97,10 +97,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    #[Patch('/products/{product}/publish')]
+    #[Patch('/products/{product}/toggle-publish')]
     public function publish(Product $product): Response
     {
-        $product->publish();
+        $product->published = !$product->published;
+        $product->save();
+
         return response()->noContent();
     }
 

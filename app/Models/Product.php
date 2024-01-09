@@ -59,10 +59,4 @@ class Product extends Model
     {
         return $this->hasMany(Image::class);
     }
-
-    public function publish()
-    {
-        $this->published = true;
-        $this->save();
-    }
 }
